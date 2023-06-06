@@ -22,7 +22,7 @@ Comentario = {ComentarioTradicional} | {FinDeLineaComentario}
 
 /* Identificador  */
 /*\int _{-\infty } ^{\pi }\:\log _7\left(\cot \left(\pi ^3\right)-7\right)*/
-Letra = [A-Za-záéíóúÁÉÍÓÚ,:;]
+Letra = [A-Za-záéíóúÁÉÍÓÚ,.:;]
 Funcion = [""|-]?\{Letra}{Letra}*
 Digito = [0-9]
 letrasGriegas = (alpha | beta | gamma | delta | zeta | eta | iota | kappa | lambda | mu | nu | xi | omicron | tau | upsilon | chi | psi | omega)
@@ -57,7 +57,7 @@ Numero = 0 | [1-9][0-9]*
 "/"   { return token(yytext(), "OPERADOR_DIVISION", yyline, yycolumn); }
 "="   { return token(yytext(), "OPERADOR_IGUALACION", yyline, yycolumn); }
 "^"   { return token(yytext(), "OPERADOR_POTENCIA", yyline, yycolumn); }
-[_]{Numero | Letra}   { return token(yytext(), "OPERADOR_SUBINIDCE", yyline, yycolumn); }
+"_"   { return token(yytext(), "OPERADOR_SUBINIDCE", yyline, yycolumn); }
 ">"   { return token(yytext(), "OPERADOR_MAYORQUE", yyline, yycolumn); }
 "<"   { return token(yytext(), "OPERADOR_MENORQUE", yyline, yycolumn); }
 ">="   { return token(yytext(), "OPERADOR_MAYORIGUAL", yyline, yycolumn); }
