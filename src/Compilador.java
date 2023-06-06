@@ -43,7 +43,8 @@ public class Compilador extends javax.swing.JFrame {
     private boolean codeHasBeenCompiled = false;
 
     /**
-     * Creates new form Compilador
+     * Creates new form Compilador \int _{-\infty }^{\pi }\:\log _7\left(\cot
+     * \left(\pi ^3\right)-7\right)
      */
     public Compilador() {
         initComponents();
@@ -313,11 +314,17 @@ public class Compilador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarCActionPerformed
 
     private void btnCompilarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompilarActionPerformed
-        compilar();
+        if (getTitle().contains("*") || getTitle().equals(title)) {
+            if (directorio.Save()) {
+                compilar();
+            }
+        } else {
+            compilar();
+        }
     }//GEN-LAST:event_btnCompilarActionPerformed
 
     private void btnEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEjecutarActionPerformed
-        compilar();
+        btnCompilar.doClick();
         if (codeHasBeenCompiled) {
             if (!errors.isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No se puede ejecutar el código ya que se encontró uno o más errores",
@@ -327,7 +334,6 @@ public class Compilador extends javax.swing.JFrame {
                 System.out.println(codeBlock);
                 ArrayList<String> blocksOfCode = codeBlock.getBlocksOfCodeInOrderOfExec();
                 System.out.println(blocksOfCode);
-
             }
         }
     }//GEN-LAST:event_btnEjecutarActionPerformed
@@ -336,8 +342,8 @@ public class Compilador extends javax.swing.JFrame {
         limpiarCampos();
         analisisLexico();
         rellenarTablaTokens();
-        analisisSintactico();
-        mostrarConsola();
+        //analisisSintactico();
+        //mostrarConsola();
         codeHasBeenCompiled = true;
     }
 
@@ -407,8 +413,7 @@ public class Compilador extends javax.swing.JFrame {
     }
 
     private void mostrarConsola() {
-        int sizeErrors = errors.size();
-        if (sizeErrors > 0) {
+        if (!errors.isEmpty()) {
             Functions.sortErrorsByLineAndColumn(errors);
             String strErrors = "\n";
             for (ErrorLSSL error : errors) {
@@ -422,7 +427,6 @@ public class Compilador extends javax.swing.JFrame {
         jtaOutputConsole.setCaretPosition(0);
     }
 
-    // asi es xd, lo clone del git
     private void limpiarCampos() {
         Functions.clearDataInTable(tblTokens);
         jtaOutputConsole.setText("");
