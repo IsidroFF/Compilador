@@ -75,8 +75,8 @@ Numero = 0 | [1-9][0-9]*
 ")" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
 "{" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
 "}" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
-"<!begin" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
-"end!>" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
+"<!inicio" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
+"fin!>" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
 "$" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
 
 /*Texto*/

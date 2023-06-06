@@ -52,9 +52,11 @@ public class Compilador extends javax.swing.JFrame {
     }
 
     private void init() {
-        title = "Codex_404";// Titulo de la ventana
+        title = "Codex_Math";// Titulo de la ventana
         setLocationRelativeTo(null);
-        setTitle(title);                                                      // algun nombre de extension???
+        setTitle(title); 
+        btnEjecutar.setVisible(false);
+        // algun nombre de extension???
         directorio = new Directory(this, jtpCode, title, ".cxmt");
 
         //Asegurarse de que al salir podamos guardar los cambios en el archivo
@@ -99,52 +101,33 @@ public class Compilador extends javax.swing.JFrame {
 
         rootPanel = new javax.swing.JPanel();
         buttonsFilePanel = new javax.swing.JPanel();
-        btnAbrir = new javax.swing.JButton();
-        btnNuevo = new javax.swing.JButton();
-        btnGuardar = new javax.swing.JButton();
-        btnGuardarC = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtpCode = new javax.swing.JTextPane();
         panelButtonCompilerExecute = new javax.swing.JPanel();
-        btnCompilar = new javax.swing.JButton();
-        btnEjecutar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jtaOutputConsole = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblTokens = new javax.swing.JTable();
         lblALex = new javax.swing.JLabel();
         lblASin = new javax.swing.JLabel();
+        btnEjecutar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        btnNuevo = new javax.swing.JButton();
+        btnAbrir = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnGuardarC = new javax.swing.JButton();
+        btnCompilar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        btnAbrir.setText("Abrir");
-        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAbrirActionPerformed(evt);
-            }
-        });
+        rootPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnNuevo.setText("Nuevo");
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
-            }
-        });
+        buttonsFilePanel.setBackground(new java.awt.Color(204, 204, 204));
 
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-
-        btnGuardarC.setText("Guardar como");
-        btnGuardarC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarCActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Open Sans", 2, 36)); // NOI18N
+        jLabel1.setText("CODEX-MATH");
 
         javax.swing.GroupLayout buttonsFilePanelLayout = new javax.swing.GroupLayout(buttonsFilePanel);
         buttonsFilePanel.setLayout(buttonsFilePanelLayout);
@@ -152,69 +135,44 @@ public class Compilador extends javax.swing.JFrame {
             buttonsFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonsFilePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNuevo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAbrir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGuardarC)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addContainerGap(216, Short.MAX_VALUE))
         );
         buttonsFilePanelLayout.setVerticalGroup(
             buttonsFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buttonsFilePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(buttonsFilePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAbrir)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnGuardarC))
-                .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonsFilePanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1))
         );
+
+        rootPanel.add(buttonsFilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 6, -1, -1));
 
         jScrollPane1.setViewportView(jtpCode);
 
-        btnCompilar.setText("Compilar");
-        btnCompilar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCompilarActionPerformed(evt);
-            }
-        });
+        rootPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 138, 693, 480));
 
-        btnEjecutar.setText("Ejecutar");
-        btnEjecutar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEjecutarActionPerformed(evt);
-            }
-        });
+        panelButtonCompilerExecute.setBackground(new java.awt.Color(204, 204, 204));
 
         javax.swing.GroupLayout panelButtonCompilerExecuteLayout = new javax.swing.GroupLayout(panelButtonCompilerExecute);
         panelButtonCompilerExecute.setLayout(panelButtonCompilerExecuteLayout);
         panelButtonCompilerExecuteLayout.setHorizontalGroup(
             panelButtonCompilerExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelButtonCompilerExecuteLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCompilar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEjecutar)
-                .addContainerGap())
+            .addGap(0, 268, Short.MAX_VALUE)
         );
         panelButtonCompilerExecuteLayout.setVerticalGroup(
             panelButtonCompilerExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelButtonCompilerExecuteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelButtonCompilerExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCompilar)
-                    .addComponent(btnEjecutar))
-                .addContainerGap(7, Short.MAX_VALUE))
+            .addGap(0, 62, Short.MAX_VALUE)
         );
+
+        rootPanel.add(panelButtonCompilerExecute, new org.netbeans.lib.awtextra.AbsoluteConstraints(559, 6, -1, -1));
 
         jtaOutputConsole.setEditable(false);
         jtaOutputConsole.setBackground(new java.awt.Color(255, 255, 255));
         jtaOutputConsole.setColumns(20);
         jtaOutputConsole.setRows(5);
         jScrollPane2.setViewportView(jtaOutputConsole);
+
+        rootPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(723, 419, 507, 199));
 
         tblTokens.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -235,54 +193,108 @@ public class Compilador extends javax.swing.JFrame {
         tblTokens.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tblTokens);
 
+        rootPanel.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(723, 88, 507, 276));
+
+        lblALex.setFont(new java.awt.Font("Open Sans Semibold", 0, 18)); // NOI18N
         lblALex.setText("Analizador Lexico");
+        rootPanel.add(lblALex, new org.netbeans.lib.awtextra.AbsoluteConstraints(723, 63, -1, -1));
 
+        lblASin.setFont(new java.awt.Font("Open Sans Semibold", 0, 18)); // NOI18N
         lblASin.setText("Analizador Sintactico");
+        rootPanel.add(lblASin, new org.netbeans.lib.awtextra.AbsoluteConstraints(723, 394, -1, -1));
 
-        javax.swing.GroupLayout rootPanelLayout = new javax.swing.GroupLayout(rootPanel);
-        rootPanel.setLayout(rootPanelLayout);
-        rootPanelLayout.setHorizontalGroup(
-            rootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rootPanelLayout.createSequentialGroup()
+        btnEjecutar.setText("Ejecutar");
+        btnEjecutar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEjecutarActionPerformed(evt);
+            }
+        });
+        rootPanel.add(btnEjecutar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1145, 6, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
+        btnNuevo.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
+        btnNuevo.setIcon(new javax.swing.ImageIcon("/home/kobayashi/Desktop/TEC/1-Automatas/COMPILADOR/Compiler/src/imagenes/newfile_85903 (1).png")); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        btnAbrir.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
+        btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/32527 (1).png"))); // NOI18N
+        btnAbrir.setText("Abrir");
+        btnAbrir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnAbrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAbrirActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save_icon_125167 (1).png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnGuardarC.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
+        btnGuardarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/32743 (1).png"))); // NOI18N
+        btnGuardarC.setText("Guardar como");
+        btnGuardarC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnGuardarC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarCActionPerformed(evt);
+            }
+        });
+
+        btnCompilar.setBackground(new java.awt.Color(204, 255, 204));
+        btnCompilar.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
+        btnCompilar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/descarga (1).png"))); // NOI18N
+        btnCompilar.setText("Compilar");
+        btnCompilar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnCompilar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompilarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addGroup(rootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(rootPanelLayout.createSequentialGroup()
-                        .addComponent(buttonsFilePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119)
-                        .addComponent(panelButtonCompilerExecute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(rootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 507, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2)
-                    .addGroup(rootPanelLayout.createSequentialGroup()
-                        .addGroup(rootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblASin)
-                            .addComponent(lblALex))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardarC, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCompilar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(534, Short.MAX_VALUE))
         );
-        rootPanelLayout.setVerticalGroup(
-            rootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rootPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(rootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(rootPanelLayout.createSequentialGroup()
-                        .addGroup(rootPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonsFilePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelButtonCompilerExecute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(rootPanelLayout.createSequentialGroup()
-                        .addComponent(lblALex)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(lblASin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(btnAbrir, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardarC, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCompilar, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(516, Short.MAX_VALUE))
         );
+
+        rootPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1240, 640));
 
         getContentPane().add(rootPanel);
 
@@ -378,22 +390,37 @@ public class Compilador extends javax.swing.JFrame {
         gramatica.delete(new String[]{"ERROR_CARACTER_INVALIDO", "ERROR_FUNCION_INVALIDA", "ERROR_BLOQUE_DE_TEXTO", "ERROR_CERO_INICIAL"}, 1);
         
         /*Grupos*/
-        gramatica.group("VALORES_NUMERICOS", " NUMERO_ENTERO | NUMERO_REAL ", true);
+        gramatica.group("VALORES_NUMERICOS", " (NUMERO_ENTERO | NUMERO_REAL) ", true);
+        
         gramatica.group("VALORES_GRIEGOS", 
-                " LETRA_GRIEGA | CU_PI | CU_EPSILON | CU_PHI | CU_SIGMA | CU_THETA | CU_RHO ", true);
+                " (LETRA_GRIEGA | CU_PI | CU_EPSILON | CU_PHI | CU_SIGMA | CU_THETA | CU_RHO) ", true);
+        
         gramatica.group("VALORES_TEXTO", " TEXTO_PLANO ", true);
-        gramatica.group("VALORES_AGRUPACIONES", 
-                " AGRUPACION_INICIO_NIVEL1 | AGRUPACION_FINAL_NIVEL1 | AGRUPACION_INICIO_NIVEL2 | AGRUPACION_FINAL_NIVEL2 | AGRUPACION_INICIO_TEXT | AGRUPACION_FINAL_TEXT | INDICACION_MATEMATICA", true);
+        
+        gramatica.group("VALORES_AGRUPACIONES_INICIO", 
+                " (AGRUPACION_INICIO_NIVEL1 |  AGRUPACION_INICIO_NIVEL2 | AGRUPACION_INICIO_TEXT | INDICACION_MATEMATICA)", true);
+        
+        gramatica.group("VALORES_AGRUPACIONES_FINAL", 
+                " (AGRUPACION_FINAL_NIVEL1 |  AGRUPACION_FINAL_NIVEL2 | AGRUPACION_FINAL_TEXT )", true);
+        
+        gramatica.group("INICIO", "AGRUPACION_INICIO_TEXT",true);
+        gramatica.group("FIN", "AGRUPACION_FINAL_TEXT");
         
         gramatica.group("OPERADORES_ARITMETRICOS",
                 "OPERADOR_SUMA | OPERADOR_RESTA | OPERADOR_MULTIPLICACION | OPERADOR_DIVISION | OPERADOR_IGUALACION | OPERADOR_POTENCIA | OPERADOR_SUBINIDCE | OPERADOR_MAYORQUE | OPERADOR_MENORQUE | OPERADOR_MAYORIGUAL | OPERADOR_MENORIGUAL | FUNCION_SQRT | FUNCION_SEN | FUNCION_COS | FUNCION_ABS");
-        gramatica.group("OPERADORES_LOGICOS", "OPERADOR_AND | OPERADOR_OR", true);
+        
+        gramatica.group("INICIO_FIN_ECUACIONES", "INDICACION_MATEMATICA",true);
         
         /* declarar variable ENTERA */
-        gramatica.group("LLAVES", "AGRUPACION_INICIO_NIVEL1 AGRUPACION_FINAL_NIVEL1", true);
+        gramatica.group("LLAVES", "VALORES_AGRUPACIONES_INICIO VALORES_NUMERICOS VALORES_AGRUPACIONES_FINAL", true);
         //No !
-        gramatica.group("LLAVES", "AGRUPACION_INICIO_NIVEL1", true,
-                2, "Error sintáctico {}: Falta un ) de cierre (Linea: # )");
+        gramatica.group("LLAVES", "VALORES_AGRUPACIONES_INICIO VALORES_NUMERICOS", true,
+                2, "Error sintáctico {}: Falta un simbolo  de cierre (Linea: # )");
+        
+        /*Seccion matematica*/
+        gramatica.group("SECCION_FORMULAS", "INICIO (TEXTO_PLANO | SECCION_FORMULAS) FIN",true);
+        gramatica.group("BLOQUE_TEXTO", "INICIO (TEXTO_PLANO | SECCION_FORMULAS) FIN",true);
+        
         /* Mostrar gramáticas */
         gramatica.show();
     }
@@ -474,7 +501,8 @@ public class Compilador extends javax.swing.JFrame {
     }
 
     private void mostrarConsola() {
-        if (!errors.isEmpty()) {
+        int sizeErrors = errors.size();
+        if (sizeErrors > 0) {
             Functions.sortErrorsByLineAndColumn(errors);
             String strErrors = "\n";
             for (ErrorLSSL error : errors) {
@@ -545,6 +573,8 @@ public class Compilador extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarC;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JPanel buttonsFilePanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

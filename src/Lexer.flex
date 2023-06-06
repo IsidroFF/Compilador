@@ -74,12 +74,12 @@ Numero = 0 | [1-9][0-9]*
 ")" { return token(yytext(), "AGRUPACION_FINAL_NIVEL1", yyline, yycolumn); }
 "{" { return token(yytext(), "AGRUPACION_INICIO_NIVEL2", yyline, yycolumn); }
 "}" { return token(yytext(), "AGRUPACION_FINAL_NIVEL2", yyline, yycolumn); }
-"<!begin" { return token(yytext(), "AGRUPACION_INICIO_TEXT", yyline, yycolumn); }
-"end!>" { return token(yytext(), "AGRUPACION_FINAL_TEXT", yyline, yycolumn); }
+"<!inicio" { return token(yytext(), "AGRUPACION_INICIO_TEXT", yyline, yycolumn); }
+"fin!>" { return token(yytext(), "AGRUPACION_FINAL_TEXT", yyline, yycolumn); }
 "$" { return token(yytext(), "INDICACION_MATEMATICA", yyline, yycolumn); }
 
 /*Texto*/
-{Identificador} { return token(yytext(), "TEXTO_PLANO", yyline, yycolumn); }
+{Identificador}({EspacioEnBlanco}{Identificador})* { return token(yytext(), "TEXTO_PLANO", yyline, yycolumn); }
 
 /*ERRORES*/
 . { return token(yytext(), "ERROR_CARACTER_INVALIDO", yyline, yycolumn); }

@@ -1,1 +1,9 @@
-(
+<!inicio
+La cinemática es la rama de la física que describe el movimiento de los objetos sólidos sin considerar las causas que lo originan y se limita, principalmente, al estudio de la trayectoria en función del tiempo.
+Formulas:
+    $
+    v_f=at+v_0
+    x_f=1/2at^2+v_0t+x_0
+    v^2_f=v^2_0+2ax
+    $
+fin!>
