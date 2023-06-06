@@ -221,11 +221,11 @@ public class Compilador extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Componente léxico", "Lexema", "[Línea, Columna]"
+                "ID", "Componente léxico", "Lexema", "[Línea, Columna]"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -342,8 +342,8 @@ public class Compilador extends javax.swing.JFrame {
         limpiarCampos();
         analisisLexico();
         rellenarTablaTokens();
-        //analisisSintactico();
-        //mostrarConsola();
+        analisisSintactico();
+        mostrarConsola();
         codeHasBeenCompiled = true;
     }
 
@@ -373,7 +373,27 @@ public class Compilador extends javax.swing.JFrame {
 
     private void analisisSintactico() {
         Grammar gramatica = new Grammar(tokens, errors);
-
+        
+        /*Eliminar errores*/
+        gramatica.delete(new String[]{"ERROR_CARACTER_INVALIDO", "ERROR_FUNCION_INVALIDA", "ERROR_BLOQUE_DE_TEXTO", "ERROR_CERO_INICIAL"}, 1);
+        
+        /*Grupos*/
+        gramatica.group("VALORES_NUMERICOS", " NUMERO_ENTERO | NUMERO_REAL ", true);
+        gramatica.group("VALORES_GRIEGOS", 
+                " LETRA_GRIEGA | CU_PI | CU_EPSILON | CU_PHI | CU_SIGMA | CU_THETA | CU_RHO ", true);
+        gramatica.group("VALORES_TEXTO", " TEXTO_PLANO ", true);
+        gramatica.group("VALORES_AGRUPACIONES", 
+                " AGRUPACION_INICIO_NIVEL1 | AGRUPACION_FINAL_NIVEL1 | AGRUPACION_INICIO_NIVEL2 | AGRUPACION_FINAL_NIVEL2 | AGRUPACION_INICIO_TEXT | AGRUPACION_FINAL_TEXT | INDICACION_MATEMATICA", true);
+        
+        gramatica.group("OPERADORES_ARITMETRICOS",
+                "OPERADOR_SUMA | OPERADOR_RESTA | OPERADOR_MULTIPLICACION | OPERADOR_DIVISION | OPERADOR_IGUALACION | OPERADOR_POTENCIA | OPERADOR_SUBINIDCE | OPERADOR_MAYORQUE | OPERADOR_MENORQUE | OPERADOR_MAYORIGUAL | OPERADOR_MENORIGUAL | FUNCION_SQRT | FUNCION_SEN | FUNCION_COS | FUNCION_ABS");
+        gramatica.group("OPERADORES_LOGICOS", "OPERADOR_AND | OPERADOR_OR", true);
+        
+        /* declarar variable ENTERA */
+        gramatica.group("LLAVES", "AGRUPACION_INICIO_NIVEL1 AGRUPACION_FINAL_NIVEL1", true);
+        //No !
+        gramatica.group("LLAVES", "AGRUPACION_INICIO_NIVEL1", true,
+                2, "Error sintáctico {}: Falta un ) de cierre (Linea: # )");
         /* Mostrar gramáticas */
         gramatica.show();
     }
@@ -407,9 +427,50 @@ public class Compilador extends javax.swing.JFrame {
 
     private void rellenarTablaTokens() {
         tokens.forEach(token -> {
-            Object[] data = new Object[]{token.getLexicalComp(), token.getLexeme(), "[" + token.getLine() + ", " + token.getColumn() + "]"};
+            Object[] data = new Object[]{id(token.getLexicalComp()),token.getLexicalComp(), token.getLexeme(), "[" + token.getLine() + ", " + token.getColumn() + "]"};
             Functions.addRowDataInTable(tblTokens, data);
         });
+    }
+    
+    public String id(String n){
+        if(n.equals("IDENTIFICADOR")){return "1";}
+        if(n.equals("NUMERO_ENTERO")){return "2";}
+        if(n.equals("NUMERO_REAL")){return "3";}
+        if(n.equals("LETRA_GRIEGA")){return "4";}
+        if(n.equals("CU_PI")){return "5";}
+        if(n.equals("CU_EPSILON")){return "6";}
+        if(n.equals("CU_PHI")){return "7";}
+        if(n.equals("CU_SIGMA")){return "8";}
+        if(n.equals("CU_THETA")){return "9";}
+        if(n.equals("CU_RHO")){return "10";}
+        if(n.equals("OPERADOR_SUMA")){return "11";}
+        if(n.equals("OPERADOR_RESTA")){return "12";}
+        if(n.equals("OPERADOR_MULTIPLICACION")){return "13";}
+        if(n.equals("OPERADOR_DIVISION")){return "14";}
+        if(n.equals("OPERADOR_IGUALACION")){return "15";}
+        if(n.equals("OPERADOR_POTENCIA")){return "16";}
+        if(n.equals("OPERADOR_SUBINIDCE")){return "17";}
+        if(n.equals("OPERADOR_MAYORQUE")){return "18";}
+        if(n.equals("OPERADOR_MENORQUE")){return "19";}
+        if(n.equals("OPERADOR_MAYORIGUAL")){return "20";}
+        if(n.equals("OPERADOR_MENORIGUAL")){return "21";}
+        if(n.equals("FUNCION_SQRT")){return "22";}
+        if(n.equals("FUNCION_SEN")){return "23";}
+        if(n.equals("FUNCION_COS")){return "24";}
+        if(n.equals("FUNCION_ABS")){return "25";}
+        if(n.equals("AGRUPACION_INICIO_NIVEL1")){return "26";}
+        if(n.equals("AGRUPACION_FINAL_NIVEL1")){return "27";}
+        if(n.equals("AGRUPACION_INICIO_NIVEL2")){return "28";}
+        if(n.equals("AGRUPACION_FINAL_NIVEL2")){return "29";}
+        if(n.equals("AGRUPACION_INICIO_TEXT")){return "30";}
+        if(n.equals("AGRUPACION_FINAL_TEXT")){return "31";}
+        if(n.equals("INDICACION_MATEMATICA")){return "32";}
+        if(n.equals("TEXTO_PLANO")){return "33";}
+        if(n.equals("ERROR_CARACTER_INVALIDO")){return "34";}
+        if(n.equals("ERROR_FUNCION_INVALIDA")){return "35";}
+        if(n.equals("ERROR_BLOQUE_DE_TEXTO")){return "36";}
+        if(n.equals("ERROR_CERO_INICIAL")){return "37";}
+        return "";
     }
 
     private void mostrarConsola() {

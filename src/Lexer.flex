@@ -85,3 +85,4 @@ Numero = 0 | [1-9][0-9]*
 . { return token(yytext(), "ERROR_CARACTER_INVALIDO", yyline, yycolumn); }
 \\{Identificador} { return token(yytext(), "ERROR_FUNCION_INVALIDA", yyline, yycolumn); }
 "<!" | "!>" { return token(yytext(), "ERROR_BLOQUE_DE_TEXTO", yyline, yycolumn); }
+0{Digito}* { return token(yytext(), "ERROR_CERO_INICIAL", yyline, yycolumn); }
