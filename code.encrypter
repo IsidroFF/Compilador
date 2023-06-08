@@ -1,10 +1,2 @@
-\clave=G2
-\compas=4/4
-\tempo=97
-\inicio(
-	\n{S4},\n{e4},\n{F4},\n{G4} | 
-	\m{G4},\n{f4},\n{E4},\n{D4} | 
-	\n{C4},\n{C4},\n{D4},\n{E4} | 
-	\n{C4},\n{C4},\n{D4},\n{E4} |
-	\n*{E4},\c{D4},\b{D4}	    |
-\final)
+\compas = 4/4
+\clave =

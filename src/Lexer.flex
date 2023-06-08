@@ -21,23 +21,21 @@ FinDeLineaComentario = "//" {EntradaDeCaracter}* {TerminadorDeLinea}?
 Comentario = {ComentarioTradicional} | {FinDeLineaComentario} 
 
 /* Identificador  */
-Letra = [A | B | C | D | E | F | G]
-DigitoEscala = [1-8]
-DigitoCompas = [1-9][1-6]?
-
-/* Número */
-Numero = 0 | [1-9][0-9]*
+Letra = [A|B|C|D|E|F|G]
+/*DigitoEscala = [1-8]*/
+Digito = [1-9][1-6]?
+Clave = {Letra}{Digito} //G16 es un error sintactico o semantico??
 %%
 
 /* Comentarios o espacios en blanco */
 {Comentario}|{EspacioEnBlanco} { /*Ignorar*/ }
 
 /*Numeros*/
-{DigitoEscala}  { return token(yytext(), "TOKEN_DIGITO_ESCALA", yyline, yycolumn); }
-{DigitoCompas}  { return token(yytext(), "TOKEN_DIGITO_COMPAS", yyline, yycolumn); }
+/*{DigitoEscala}  { return token(yytext(), "TOKEN_DIGITO_ESCALA", yyline, yycolumn); }*/
+{Digito}  { return token(yytext(), "TOKEN_DIGITO", yyline, yycolumn); }
 
 /*Notas*/
-{Letra}{DigitoEscala} { return token(yytext(), "TOKEN_NOTA", yyline, yycolumn); }
+{Clave} { return token(yytext(), "TOKEN_NOTA", yyline, yycolumn); }
 
 /*Encabezado*/
 \\"clave"  { return token(yytext(), "TOKEN_CLAVE", yyline, yycolumn); }
@@ -58,13 +56,13 @@ Numero = 0 | [1-9][0-9]*
 \\"sf"	 { return token(yytext(), "TOKEN_SEMIFUSA", yyline, yycolumn); }
 
 /*Silencio figura*/
-\\"sr"	 { return token(yytext(), "TOKEN_SILENCIO_REDONDA", yyline, yycolumn); }
-\\"sb"	 { return token(yytext(), "TOKEN_SILENCIO_BLANCA", yyline, yycolumn); }
-\\"sn"	 { return token(yytext(), "TOKEN_SILENCIO_NEGRA", yyline, yycolumn); }
-\\"sc"	 { return token(yytext(), "TOKEN_SILENCIO_CORCHEA", yyline, yycolumn); }
-\\"ss"	 { return token(yytext(), "TOKEN_SILENCIO_SEMICORCHEA", yyline, yycolumn); }
-\\"sf"	 { return token(yytext(), "TOKEN_SILENCIO_FUSA", yyline, yycolumn); }
-\\"ssf"	 { return token(yytext(), "TOKEN_SILENCIO_SEMIFUSA", yyline, yycolumn); }
+\\"sir"	 { return token(yytext(), "TOKEN_SILENCIO_REDONDA", yyline, yycolumn); }
+\\"sib"	 { return token(yytext(), "TOKEN_SILENCIO_BLANCA", yyline, yycolumn); }
+\\"sin"	 { return token(yytext(), "TOKEN_SILENCIO_NEGRA", yyline, yycolumn); }
+\\"sic"	 { return token(yytext(), "TOKEN_SILENCIO_CORCHEA", yyline, yycolumn); }
+\\"sis"	 { return token(yytext(), "TOKEN_SILENCIO_SEMICORCHEA", yyline, yycolumn); }
+\\"sif"	 { return token(yytext(), "TOKEN_SILENCIO_FUSA", yyline, yycolumn); }
+\\"sisf"	 { return token(yytext(), "TOKEN_SILENCIO_SEMIFUSA", yyline, yycolumn); }
 
 /*Extas*/
 "*"	 { return token(yytext(), "TOKEN_PUNTILLO", yyline, yycolumn); }

@@ -51,12 +51,12 @@ public class Compilador extends javax.swing.JFrame {
     }
 
     private void init() {
-        title = "Codex_Math";// Titulo de la ventana
+        title = "Codex_Music";// Titulo de la ventana
         setLocationRelativeTo(null);
         setTitle(title);
         btnEjecutar.setVisible(false);
         // algun nombre de extension???
-        directorio = new Directory(this, jtpCode, title, ".cxmt");
+        directorio = new Directory(this, jtpCode, title, ".cmx");
 
         //Asegurarse de que al salir podamos guardar los cambios en el archivo
         addWindowListener(new WindowAdapter() {
@@ -126,7 +126,7 @@ public class Compilador extends javax.swing.JFrame {
         buttonsFilePanel.setBackground(new java.awt.Color(204, 204, 204));
 
         jLabel1.setFont(new java.awt.Font("Open Sans", 2, 36)); // NOI18N
-        jLabel1.setText("CODEX-MATH");
+        jLabel1.setText("CODEX-MUSIC");
 
         javax.swing.GroupLayout buttonsFilePanelLayout = new javax.swing.GroupLayout(buttonsFilePanel);
         buttonsFilePanel.setLayout(buttonsFilePanelLayout);
@@ -146,7 +146,6 @@ public class Compilador extends javax.swing.JFrame {
 
         rootPanel.add(buttonsFilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 6, -1, -1));
 
-        jtpCode.setBackground(new java.awt.Color(40, 42, 54));
         jScrollPane1.setViewportView(jtpCode);
 
         rootPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 138, 693, 480));
@@ -216,7 +215,7 @@ public class Compilador extends javax.swing.JFrame {
         btnNuevo.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
         btnNuevo.setIcon(new javax.swing.ImageIcon("/home/kobayashi/Desktop/TEC/1-Automatas/COMPILADOR/Compiler/src/imagenes/newfile_85903 (1).png")); // NOI18N
         btnNuevo.setText("Nuevo");
-        btnNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        btnNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
@@ -226,7 +225,7 @@ public class Compilador extends javax.swing.JFrame {
         btnAbrir.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
         btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/32527 (1).png"))); // NOI18N
         btnAbrir.setText("Abrir");
-        btnAbrir.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        btnAbrir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirActionPerformed(evt);
@@ -236,7 +235,7 @@ public class Compilador extends javax.swing.JFrame {
         btnGuardar.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save_icon_125167 (1).png"))); // NOI18N
         btnGuardar.setText("Guardar");
-        btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -246,7 +245,7 @@ public class Compilador extends javax.swing.JFrame {
         btnGuardarC.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
         btnGuardarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/32743 (1).png"))); // NOI18N
         btnGuardarC.setText("Guardar como");
-        btnGuardarC.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        btnGuardarC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnGuardarC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarCActionPerformed(evt);
@@ -257,7 +256,7 @@ public class Compilador extends javax.swing.JFrame {
         btnCompilar.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
         btnCompilar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/descarga (1).png"))); // NOI18N
         btnCompilar.setText("Compilar");
-        btnCompilar.setBorder(javax.swing.BorderFactory.createLineBorder(null));
+        btnCompilar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnCompilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCompilarActionPerformed(evt);
@@ -386,24 +385,64 @@ public class Compilador extends javax.swing.JFrame {
     private void analisisSintactico() {
         Grammar gramatica = new Grammar(tokens, errors);
         /*ERRORES*/
-        gramatica.delete(new String[]{"ERROR"});
+        gramatica.delete(new String[]{"ERROR"},1);
         
-         /* GRUPOS*/ gramatica.group("FIGURAS", "(TOKEN_REDONDA | TOKEN_BLANCA | TOKEN_NEGRA | TOKEN_CORCHEA | TOKEN_SEMICORCHEA | TOKEN_FUSA | TOKEN_SEMIFUSA", true);
-        gramatica.group("SILENCIOS", "(TOKEN_SILENCIO_REDONDA | TOKEN_SILENCIO_BLANCA | TOKEN_SILENCIO_NEGRA | TOKEN_SILENCIO_CORCHEA | TOKEN_SILENCIO_SEMICORCHEA | TOKEN_SILENCIO_FUSA | TOKEN_SILENCIO_SEMIFUSA", true);
-        gramatica.group("NUMERO", "(TOKEN_NUMERO)", true);
-        gramatica.group("ASIGNACION", "(TOKEN_ASIGNACION)", true);
-        gramatica.group("RESERVADAS", "(TOKEN_CLAVE | TOKEN_COMPAS  | TOKEN_TEMPO)", true);
-        gramatica.group("DELIMITADORES", "(TOKEN_INICIO_PARTITURA | TOKEN_FINAL_PARTITURA | TOKEN_APERTURA | TOKEN_CIERRE)", true);
-        gramatica.group("SEPARADORES", "(TOKEN_DIVISOR_COMPAS | TOKEN_DIVISOR_TEMPO | TOKEN_SEPARACION_COMPAS)", true);
-         /* DECLARACIÓN CLAVE*/ 
-         gramatica.group("DECLARACION_CLAVE", "RESERVADAS ASIGNACION FIGURAS NUMERO", true);
-         /* DECLARACIÓN COMPAS*/ 
-         gramatica.group("DECLARACION_COMPAS", "RESERVADAS ASIGNACION NUMERO SEPARADORES NUMERO", true);
-         /* DECLARACIÓN TEMPO*/ 
-         gramatica.group("DECLARACION_COMPAS", "RESERVADAS ASIGNACION NUMERO NUMERO", true);
+        /*GRUPOS*/
+        gramatica.group("COMPAS", "TOKEN_DIGITO TOKEN_DIVISOR_TEMPO TOKEN_DIGITO");
+        gramatica.group("COMPAS_ERROR", "TOKEN_DIGITO TOKEN_DIGITO | TOKEN_DIGITO");
+        /* DECLARACIÓN CLAVE--------------------------------------------------*/
+        gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_ASIGNACION NOTAS", true);
+        // ERRORES DECLARACION CLAVE
+        gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_ASIGNACION", true,
+                2,"Error sintáctico #: Declarción incompleta, falta especificar la clave (G2 o F{3,4} o C{1,2,3,4}) [#,%]");
+        
+        gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE NOTAS", true,
+                3,"Error sintáctico #: Declarción incompleta, se espera simbolo de asignación (=) [#,%]");
+        
+        gramatica.group("DECLARACION_CLAVE", "TOKEN_ASIGNACION NOTAS", true,
+                4,"Error sintáctico #: Declarción incompleta, se espera la palabra reservada \"\\clave\" antes de \"=\" [#,%]");
+        
+        gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE", true,
+                5,"Error sintáctico #: Declaración de clave incompleta [#,%]");
+        /* DECLARACIÓN COMPAS-------------------------------------------------*/
+        gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION COMPAS", true);
+        /*ERRORES DELCARACION COMPAS*/
+        gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION TOKEN_DIGITO TOKEN_DIVISOR_TEMPO", true,
+                6,"Error sintáctico #: Falta declarar unidad de tiempo [#,%]");
+        
+        gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION TOKEN_DIVISOR_TEMPO TOKEN_DIGITO", true,
+                7,"Error sintáctico #: Falta declarar unidad de compas [#,%]");
+        
+        gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_DIGITO TOKEN_DIVISOR_TEMPO TOKEN_DIGITO", true,
+                8,"Error sintáctico #: Falta declarar asignacion (=) [#,%]");
+        
+        gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION COMPAS_ERROR", true,
+                9,"Error sintáctico #: Falta divisor (/) [#,%]");
+        
+        gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION", true,
+                10,"Error sintáctico #: No hay un compas asignado [#,%]");
+        
+        gramatica.group("DECLARACION_COMPAS", "TOKEN_ASIGNACION COMPAS", true,
+                11,"Error sintáctico #: Declarción incompleta, se espera la palabra reservada \"\\compas\" antes de \"=\" [#,%]");
+        
+        gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS", true,
+                12,"Error sintáctico #: Error sintáctico #: Declaración de compas incompleta [#,%]");
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /* DECLARACIÓN TEMPO--------------------------------------------------*/
+        gramatica.group("DECLARACION_COMPAS", "RESERVADAS ASIGNACION NUMERO NUMERO", true);
         /*DECLARACION FIGURA CON NOTA*/
-        gramatica.group("DECLARACION_FIGURANOTA", "FIGURAS SEPARADORES FIGURAS NUMERO DELIMITADORES SEPARADORES", true); /*checar cuando se trate de una declaración al final del compas, pues esta no necesita coma*/
-        /* Mostrar gramáticas */
+        gramatica.group("DECLARACION_FIGURANOTA", "FIGURAS SEPARADORES FIGURAS NUMERO DELIMITADORES SEPARADORES", true);
+        /*checar cuando se trate de una declaración al final del compas, pues esta no necesita coma*/
+ /* Mostrar gramáticas */
         gramatica.show();
     }
 
