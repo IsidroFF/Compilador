@@ -1,7 +1,28 @@
+	\n{E4} \n{E4} \n{F4} \n{G4}
+ 	\n{G4} \n{F4} \n{E4} \n{D4} 
+	\n{C4} \n{C4} \n{D4} \n{E4} 
+	\n{C4} \n{C4} \n{D4} \n{E4} 
+	\n{E4} \c{D4} \b{D4} 
+
 \inicio(
 	\n{E4} \n{E4} \n{F4} \n{G4}
  	\n{G4} \n{F4} \n{E4} \n{D4} 
 	\n{C4} \n{C4} \n{D4} \n{E4} 
 	\n{C4} \n{C4} \n{D4} \n{E4} 
 	\n{E4} \c{D4} \b{D4}       
-\
+\final)
+
+
+	\n{E4} \n{E4} \n{F4} \n{G4}
+ 	\n{G4} \n{F4} \n{E4} \n{D4} 
+	\n{C4} \n{C4} \n{D4} \n{E4} 
+	\n{C4} \n{C4} \n{D4} \n{E4} 
+	\n{E4} \c{D4} \b{D4}       
+\final)
+
+\inicio(
+	\n{E4} \n{E4} \n{F4} \n{G4}
+ 	\n{G4} \n{F4} \n{E4} \n{D4} 
+	\n{C4} \n{C4} \n{D4} \n{E4} 
+	\n{C4} \n{C4} \n{D4} \n{E4} 
+	\n{E4} \c{D4} \b{D4}       

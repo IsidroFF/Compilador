@@ -77,9 +77,9 @@ public class Compilador extends javax.swing.JFrame {
         });
 
         //Idicador de texto modificado en el editor jtpCode
-        Functions.insertAsteriskInName(this, jtpCode, () -> {
-            timerKeyReleased.restart();
-        });
+        //Functions.insertAsteriskInName(this, jtpCode, () -> {
+        //    timerKeyReleased.restart();
+        //});
 
         //Arrays de elementos
         tokens = new ArrayList<>();
@@ -396,110 +396,114 @@ public class Compilador extends javax.swing.JFrame {
         gramatica.group("COMPAS_ERROR", "TOKEN_DIGITO TOKEN_DIGITO | TOKEN_DIGITO");
         gramatica.group("FIGURA", "(TOKEN_REDONDA | TOKEN_BLANCA | TOKEN_NEGRA | TOKEN_CORCHEA | TOKEN_SEMICORCHEA | TOKEN_FUSA | TOKEN_SEMIFUSA) | (TOKEN_REDONDA | TOKEN_BLANCA | TOKEN_NEGRA | TOKEN_CORCHEA | TOKEN_SEMICORCHEA | TOKEN_FUSA | TOKEN_SEMIFUSA)(TOKEN_PUNTILLO)", true);
         gramatica.group("SILENCIOS", "(TOKEN_SILENCIO_REDONDA | TOKEN_SILENCIO_BLANCA | TOKEN_SILENCIO_NEGRA | TOKEN_SILENCIO_CORCHEA | TOKEN_SILENCIO_SEMICORCHEA | TOKEN_SILENCIO_FUSA | TOKEN_SILENCIO_SEMIFUSA)(TOKEN_PUNTILLO) | (TOKEN_SILENCIO_REDONDA | TOKEN_SILENCIO_BLANCA | TOKEN_SILENCIO_NEGRA | TOKEN_SILENCIO_CORCHEA | TOKEN_SILENCIO_SEMICORCHEA | TOKEN_SILENCIO_FUSA | TOKEN_SILENCIO_SEMIFUSA)(TOKEN_PUNTILLO)", true);
-        
+
         /* DECLARACIÓN CLAVE--------------------------------------------------*/
         gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_ASIGNACION TOKEN_NOTA", true);
         // ERRORES DECLARACION CLAVE
         gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_ASIGNACION", true,
-                2, "Error sintáctico #: Declarción incompleta, falta especificar la clave (G2 o F{3,4} o C{1,2,3,4}) [#,%]");
+                2, "Error sintáctico {}: Declarción incompleta, falta especificar la clave (G2 o F{3,4} o C{1,2,3,4}) [#,%]");
 
         gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_NOTA", true,
-                3, "Error sintáctico #: Declarción incompleta, se espera simbolo de asignación (=) [#,%]");
+                3, "Error sintáctico {}: Declarción incompleta, se espera simbolo de asignación (=) [#,%]");
 
         gramatica.group("DECLARACION_CLAVE", "TOKEN_ASIGNACION TOKEN_NOTA", true,
-                4, "Error sintáctico #: Declarción incompleta, se espera la palabra reservada \"\\clave\" antes de \"=\" [#,%]");
+                4, "Error sintáctico {}: Declarción incompleta, se espera la palabra reservada \"\\clave\" antes de \"=\" [#,%]");
 
         gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE", true,
-                5, "Error sintáctico #: Declaración de clave incompleta [#,%]");
-        
+                5, "Error sintáctico {}: Declaración de clave incompleta [#,%]");
+
         /* DECLARACIÓN COMPAS-------------------------------------------------*/
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION COMPAS", true);
         /*ERRORES DELCARACION COMPAS*/
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION TOKEN_DIGITO TOKEN_DIVISOR_TEMPO", true,
-                6, "Error sintáctico #: Falta declarar unidad de tiempo [#,%]");
+                6, "Error sintáctico {}: Falta declarar unidad de tiempo [#,%]");
 
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION TOKEN_DIVISOR_TEMPO TOKEN_DIGITO", true,
-                7, "Error sintáctico #: Falta declarar unidad de compas [#,%]");
+                7, "Error sintáctico {}: Falta declarar unidad de compas [#,%]");
 
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_DIGITO TOKEN_DIVISOR_TEMPO TOKEN_DIGITO", true,
-                8, "Error sintáctico #: Falta declarar asignacion (=) [#,%]");
+                8, "Error sintáctico {}: Falta declarar asignacion (=) [#,%]");
 
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION COMPAS_ERROR", true,
-                9, "Error sintáctico #: Falta divisor (/) [#,%]");
+                9, "Error sintáctico {}: Falta divisor (/) [#,%]");
 
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION", true,
-                10, "Error sintáctico #: No hay un compas asignado [#,%]");
+                10, "Error sintáctico {}: No hay un compas asignado [#,%]");
 
         gramatica.group("DECLARACION_COMPAS", "TOKEN_ASIGNACION COMPAS", true,
-                11, "Error sintáctico #: Declarción incompleta, se espera la palabra reservada \"\\compas\" antes de \"=\" [#,%]");
+                11, "Error sintáctico {}: Declarción incompleta, se espera la palabra reservada \"\\compas\" antes de \"=\" [#,%]");
 
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS", true,
-                12, "Error sintáctico #: Declaración de compas incompleta [#,%]");
-        
+                12, "Error sintáctico {}: Declaración de compas incompleta [#,%]");
+
         /* DECLARACIÓN TEMPO--------------------------------------------------*/
         gramatica.group("DECLARACION_TEMPO", "TOKEN_TEMPO TOKEN_ASIGNACION COMPAS_ERROR", true);
         // ERRORES DECLARACION TEMPO
         gramatica.group("DECLARACION_TEMPO", "TOKEN_TEMPO TOKEN_ASIGNACION", true,
-                13, "Error sintáctico #: Declarción incompleta, falta especificar el tempo [#,%]");
+                13, "Error sintáctico {}: Declarción incompleta, falta especificar el tempo [#,%]");
 
         gramatica.group("DECLARACION_TEMPO", "TOKEN_TEMPO COMPAS_ERROR", true,
-                14, "Error sintáctico #: Declarción incompleta, se espera simbolo de asignación (=) [#,%]");
+                14, "Error sintáctico {}: Declarción incompleta, se espera simbolo de asignación (=) [#,%]");
 
         gramatica.group("DECLARACION_TEMPO", "TOKEN_ASIGNACION COMPAS_ERROR", true,
-                15, "Error sintáctico #: Declarción incompleta, se espera la palabra reservada \"\\tempo\" antes de \"=\" [#,%]");
+                15, "Error sintáctico {}: Declarción incompleta, se espera la palabra reservada \"\\tempo\" antes de \"=\" [#,%]");
 
         gramatica.group("DECLARACION_TEMPO", "TOKEN_TEMPO", true,
-                16, "Error sintáctico #: Declaración de tempo incompleta [#,%]");
-        
+                16, "Error sintáctico {}: Declaración de tempo incompleta [#,%]");
+
         /*DECLARACION FIGURA CON NOTA-----------------------------------------*/
-        gramatica.group("DECLARACION_FIGURANOTA", "FIGURA TOKEN_APERTURA TOKEN_NOTA TOKEN_CIERRE", false);
+        gramatica.loopForFunExecUntilChangeNotDetected(() -> {
+            gramatica.group("DECLARACION_FIGURANOTA", "(FIGURA TOKEN_APERTURA TOKEN_NOTA TOKEN_CIERRE)+");
+        });
         /*ERRORES DECLARACION NOTAS*/
         gramatica.group("DECLARACION_FIGURANOTA", "FIGURA TOKEN_APERTURA TOKEN_NOTA", true,
-                17, "Error sintáctico #: Se espera una declaracion de cierre \"}\" para la nota [#,%]");
-        
+                17, "Error sintáctico {}: Se espera una declaracion de cierre \"}\" para la nota [#,%]");
+
         gramatica.group("DECLARACION_FIGURANOTA", "FIGURA TOKEN_NOTA TOKEN_CIERRE", true,
-                18, "Error sintáctico #: Se espera una declaracion de apertura \"{\" para la nota [#,%]");
-        
+                18, "Error sintáctico {}: Se espera una declaracion de apertura \"{\" para la nota [#,%]");
+
         gramatica.group("DECLARACION_FIGURANOTA", "FIGURA TOKEN_APERTURA TOKEN_CIERRE", true,
-                19, "Error sintáctico #: Se espera una nota (Ej. A4) [#,%]");
-        
+                19, "Error sintáctico {}: Se espera una nota (Ej. A4) [#,%]");
+
         gramatica.group("DECLARACION_FIGURANOTA", "FIGURA TOKEN_NOTA", true,
-                20, "Error sintáctico #: Se espera que el valor de nota se encuentre entre llaves (\"{}\") [#,%]");
-        
+                20, "Error sintáctico {}: Se espera que el valor de nota se encuentre entre llaves (\"{}\") [#,%]");
+
         gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_APERTURA TOKEN_NOTA TOKEN_CIERRE", true,
-                21, "Error sintáctico #: No se ha especificado un a figura [#,%]");
-        
+                21, "Error sintáctico {}: No se ha especificado un a figura [#,%]");
+
         gramatica.group("DECLARACION_FIGURANOTA", "FIGURA TOKEN_APERTURA", true,
-                22, "Error sintáctico #: Declaracion incompleta, hace falta un valor de nota (Ej. A4) y un cierre \"}\" [#,%]");
-        
+                22, "Error sintáctico {}: Declaracion incompleta, hace falta un valor de nota (Ej. A4) y un cierre \"}\" [#,%]");
+
         gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_APERTURA TOKEN_NOTA", true,
-                23, "Error sintáctico #: Se un valor de figura, y un valor de cierre \"}\" [#,%]");
-        
+                23, "Error sintáctico {}: Se un valor de figura, y un valor de cierre \"}\" [#,%]");
+
         gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_NOTA TOKEN_CIERRE", true,
-                24, "Error sintáctico #: Se espera un valor de figura, y un valor de apertura \"{\" [#,%]");
-        
+                24, "Error sintáctico {}: Se espera un valor de figura, y un valor de apertura \"{\" [#,%]");
+
         gramatica.group("DECLARACION_FIGURANOTA", "FIGURA TOKEN_CIERRE", true,
-                25, "Error sintáctico #: Declaracion incompleta, hace falta un valor de apertura \"{\" y una nota (Ej. A4) [#,%]");
-        
+                25, "Error sintáctico {}: Declaracion incompleta, hace falta un valor de apertura \"{\" y una nota (Ej. A4) [#,%]");
+
         gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_APERTURA TOKEN_CIERRE", true,
-                26, "Error sintáctico #: Declaracion incompleta, hace falta un valor de figura y una nota (Ej. A4) [#,%]");
-        
+                26, "Error sintáctico {}: Declaracion incompleta, hace falta un valor de figura y una nota (Ej. A4) [#,%]");
+
         /*DECLARACION BLOQUE DE COMPASES*/
-        gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_INICIO_PARTITURA DECLARACION_FIGURANOTA TOKEN_FINAL_PARTITURA", true);
+        gramatica.group("BLOQUE_COMPASES", "TOKEN_INICIO_PARTITURA DECLARACION_FIGURANOTA TOKEN_FINAL_PARTITURA", true);
         //ERROR DECLARACION BLOQUE DE COMPASES
-        gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_INICIO_PARTITURA DECLARACION_FIGURANOTA", true,
-                27,"Error sintáctico #: Declaracion incompleta, final de la partitura no encontrada (\\final))[#,%]");
+        gramatica.finalLineColumn();
+        gramatica.group("BLOQUE_COMPASES", "TOKEN_INICIO_PARTITURA DECLARACION_FIGURANOTA", true,
+                27, "Error sintáctico {}: Declaracion incompleta, final de la partitura no encontrada (\\final))[#,%]");
         
-        gramatica.group("DECLARACION_FIGURANOTA", "DECLARACION_FIGURANOTA TOKEN_FINAL_PARTITURA", true,
-                28,"Error sintáctico #: Declaracion incompleta, inicio de la partitura no encontrada (\\inicio()[#,%]");
-        
-        gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_INICIO_PARTITURA TOKEN_FINAL_PARTITURA", true,
-                29,"Advertencia: No hay notas en el bloque de partitura [#,%]");
-        
+        gramatica.initialLineColumn();
+        gramatica.group("BLOQUE_COMPASES", "DECLARACION_FIGURANOTA TOKEN_FINAL_PARTITURA", true,
+                28, "Error sintáctico {]: Declaracion incompleta, inicio de la partitura no encontrada (\\inicio()[#,%]");
+
+        gramatica.group("BLOQUE_COMPASES", "TOKEN_INICIO_PARTITURA TOKEN_FINAL_PARTITURA", true,
+                29, "Advertencia: No hay notas en el bloque de partitura [#,%]");
+
         gramatica.group("DECLARACION_FIGURANOTA", "DECLARACION_FIGURANOTA", true,
-                30,"Error sintáctico #: Declaracion incompleta, hace falta una declaracion de inicio y una declaracion de final en antes y despues del bloque de partitura [#,%]");
- /* Mostrar gramáticas */
-        /*TOKENS FUERA DE CONTEXTO*/
+                30, "Error sintáctico #: Declaracion incompleta, hace falta una declaracion de inicio y una declaracion de final en antes y despues del bloque de partitura [#,%]");
+        /* Mostrar gramáticas */
+ /*TOKENS FUERA DE CONTEXTO*/
         gramatica.show();
     }
 
