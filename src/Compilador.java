@@ -43,8 +43,7 @@ public class Compilador extends javax.swing.JFrame {
     private boolean codeHasBeenCompiled = false;
 
     /**
-     * Creates new form Compilador \int _{-\infty }^{\pi }\:\log _7\left(\cot
-     * \left(\pi ^3\right)-7\right)
+     * Creates new form Compilador
      */
     public Compilador() {
         initComponents();
@@ -54,7 +53,7 @@ public class Compilador extends javax.swing.JFrame {
     private void init() {
         title = "Codex_Math";// Titulo de la ventana
         setLocationRelativeTo(null);
-        setTitle(title); 
+        setTitle(title);
         btnEjecutar.setVisible(false);
         // algun nombre de extension???
         directorio = new Directory(this, jtpCode, title, ".cxmt");
@@ -147,6 +146,7 @@ public class Compilador extends javax.swing.JFrame {
 
         rootPanel.add(buttonsFilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 6, -1, -1));
 
+        jtpCode.setBackground(new java.awt.Color(40, 42, 54));
         jScrollPane1.setViewportView(jtpCode);
 
         rootPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 138, 693, 480));
@@ -216,7 +216,7 @@ public class Compilador extends javax.swing.JFrame {
         btnNuevo.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
         btnNuevo.setIcon(new javax.swing.ImageIcon("/home/kobayashi/Desktop/TEC/1-Automatas/COMPILADOR/Compiler/src/imagenes/newfile_85903 (1).png")); // NOI18N
         btnNuevo.setText("Nuevo");
-        btnNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnNuevo.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
@@ -226,7 +226,7 @@ public class Compilador extends javax.swing.JFrame {
         btnAbrir.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
         btnAbrir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconos/32527 (1).png"))); // NOI18N
         btnAbrir.setText("Abrir");
-        btnAbrir.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnAbrir.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         btnAbrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAbrirActionPerformed(evt);
@@ -236,7 +236,7 @@ public class Compilador extends javax.swing.JFrame {
         btnGuardar.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/save_icon_125167 (1).png"))); // NOI18N
         btnGuardar.setText("Guardar");
-        btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -246,7 +246,7 @@ public class Compilador extends javax.swing.JFrame {
         btnGuardarC.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
         btnGuardarC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/32743 (1).png"))); // NOI18N
         btnGuardarC.setText("Guardar como");
-        btnGuardarC.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnGuardarC.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         btnGuardarC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarCActionPerformed(evt);
@@ -257,7 +257,7 @@ public class Compilador extends javax.swing.JFrame {
         btnCompilar.setFont(new java.awt.Font("Open Sans Semibold", 0, 15)); // NOI18N
         btnCompilar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/descarga (1).png"))); // NOI18N
         btnCompilar.setText("Compilar");
-        btnCompilar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        btnCompilar.setBorder(javax.swing.BorderFactory.createLineBorder(null));
         btnCompilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCompilarActionPerformed(evt);
@@ -385,42 +385,24 @@ public class Compilador extends javax.swing.JFrame {
 
     private void analisisSintactico() {
         Grammar gramatica = new Grammar(tokens, errors);
+        /*ERRORES*/
+        gramatica.delete(new String[]{"ERROR"});
         
-        /*Eliminar errores*/
-        gramatica.delete(new String[]{"ERROR_CARACTER_INVALIDO", "ERROR_FUNCION_INVALIDA", "ERROR_BLOQUE_DE_TEXTO", "ERROR_CERO_INICIAL"}, 1);
-        
-        /*Grupos*/
-        gramatica.group("VALORES_NUMERICOS", " (NUMERO_ENTERO | NUMERO_REAL) ", true);
-        
-        gramatica.group("VALORES_GRIEGOS", 
-                " (LETRA_GRIEGA | CU_PI | CU_EPSILON | CU_PHI | CU_SIGMA | CU_THETA | CU_RHO) ", true);
-        
-        gramatica.group("VALORES_TEXTO", " TEXTO_PLANO ", true);
-        
-        gramatica.group("VALORES_AGRUPACIONES_INICIO", 
-                " (AGRUPACION_INICIO_NIVEL1 |  AGRUPACION_INICIO_NIVEL2 | AGRUPACION_INICIO_TEXT | INDICACION_MATEMATICA)", true);
-        
-        gramatica.group("VALORES_AGRUPACIONES_FINAL", 
-                " (AGRUPACION_FINAL_NIVEL1 |  AGRUPACION_FINAL_NIVEL2 | AGRUPACION_FINAL_TEXT )", true);
-        
-        gramatica.group("INICIO", "AGRUPACION_INICIO_TEXT",true);
-        gramatica.group("FIN", "AGRUPACION_FINAL_TEXT");
-        
-        gramatica.group("OPERADORES_ARITMETRICOS",
-                "OPERADOR_SUMA | OPERADOR_RESTA | OPERADOR_MULTIPLICACION | OPERADOR_DIVISION | OPERADOR_IGUALACION | OPERADOR_POTENCIA | OPERADOR_SUBINIDCE | OPERADOR_MAYORQUE | OPERADOR_MENORQUE | OPERADOR_MAYORIGUAL | OPERADOR_MENORIGUAL | FUNCION_SQRT | FUNCION_SEN | FUNCION_COS | FUNCION_ABS");
-        
-        gramatica.group("INICIO_FIN_ECUACIONES", "INDICACION_MATEMATICA",true);
-        
-        /* declarar variable ENTERA */
-        gramatica.group("LLAVES", "VALORES_AGRUPACIONES_INICIO VALORES_NUMERICOS VALORES_AGRUPACIONES_FINAL", true);
-        //No !
-        gramatica.group("LLAVES", "VALORES_AGRUPACIONES_INICIO VALORES_NUMERICOS", true,
-                2, "Error sintáctico {}: Falta un simbolo  de cierre (Linea: # )");
-        
-        /*Seccion matematica*/
-        gramatica.group("SECCION_FORMULAS", "INICIO (TEXTO_PLANO | SECCION_FORMULAS) FIN",true);
-        gramatica.group("BLOQUE_TEXTO", "INICIO (TEXTO_PLANO | SECCION_FORMULAS) FIN",true);
-        
+         /* GRUPOS*/ gramatica.group("FIGURAS", "(TOKEN_REDONDA | TOKEN_BLANCA | TOKEN_NEGRA | TOKEN_CORCHEA | TOKEN_SEMICORCHEA | TOKEN_FUSA | TOKEN_SEMIFUSA", true);
+        gramatica.group("SILENCIOS", "(TOKEN_SILENCIO_REDONDA | TOKEN_SILENCIO_BLANCA | TOKEN_SILENCIO_NEGRA | TOKEN_SILENCIO_CORCHEA | TOKEN_SILENCIO_SEMICORCHEA | TOKEN_SILENCIO_FUSA | TOKEN_SILENCIO_SEMIFUSA", true);
+        gramatica.group("NUMERO", "(TOKEN_NUMERO)", true);
+        gramatica.group("ASIGNACION", "(TOKEN_ASIGNACION)", true);
+        gramatica.group("RESERVADAS", "(TOKEN_CLAVE | TOKEN_COMPAS  | TOKEN_TEMPO)", true);
+        gramatica.group("DELIMITADORES", "(TOKEN_INICIO_PARTITURA | TOKEN_FINAL_PARTITURA | TOKEN_APERTURA | TOKEN_CIERRE)", true);
+        gramatica.group("SEPARADORES", "(TOKEN_DIVISOR_COMPAS | TOKEN_DIVISOR_TEMPO | TOKEN_SEPARACION_COMPAS)", true);
+         /* DECLARACIÓN CLAVE*/ 
+         gramatica.group("DECLARACION_CLAVE", "RESERVADAS ASIGNACION FIGURAS NUMERO", true);
+         /* DECLARACIÓN COMPAS*/ 
+         gramatica.group("DECLARACION_COMPAS", "RESERVADAS ASIGNACION NUMERO SEPARADORES NUMERO", true);
+         /* DECLARACIÓN TEMPO*/ 
+         gramatica.group("DECLARACION_COMPAS", "RESERVADAS ASIGNACION NUMERO NUMERO", true);
+        /*DECLARACION FIGURA CON NOTA*/
+        gramatica.group("DECLARACION_FIGURANOTA", "FIGURAS SEPARADORES FIGURAS NUMERO DELIMITADORES SEPARADORES", true); /*checar cuando se trate de una declaración al final del compas, pues esta no necesita coma*/
         /* Mostrar gramáticas */
         gramatica.show();
     }
@@ -454,49 +436,123 @@ public class Compilador extends javax.swing.JFrame {
 
     private void rellenarTablaTokens() {
         tokens.forEach(token -> {
-            Object[] data = new Object[]{id(token.getLexicalComp()),token.getLexicalComp(), token.getLexeme(), "[" + token.getLine() + ", " + token.getColumn() + "]"};
+            Object[] data = new Object[]{id(token.getLexicalComp()), token.getLexicalComp(), token.getLexeme(), "[" + token.getLine() + ", " + token.getColumn() + "]"};
             Functions.addRowDataInTable(tblTokens, data);
         });
     }
-    
-    public String id(String n){
-        if(n.equals("IDENTIFICADOR")){return "1";}
-        if(n.equals("NUMERO_ENTERO")){return "2";}
-        if(n.equals("NUMERO_REAL")){return "3";}
-        if(n.equals("LETRA_GRIEGA")){return "4";}
-        if(n.equals("CU_PI")){return "5";}
-        if(n.equals("CU_EPSILON")){return "6";}
-        if(n.equals("CU_PHI")){return "7";}
-        if(n.equals("CU_SIGMA")){return "8";}
-        if(n.equals("CU_THETA")){return "9";}
-        if(n.equals("CU_RHO")){return "10";}
-        if(n.equals("OPERADOR_SUMA")){return "11";}
-        if(n.equals("OPERADOR_RESTA")){return "12";}
-        if(n.equals("OPERADOR_MULTIPLICACION")){return "13";}
-        if(n.equals("OPERADOR_DIVISION")){return "14";}
-        if(n.equals("OPERADOR_IGUALACION")){return "15";}
-        if(n.equals("OPERADOR_POTENCIA")){return "16";}
-        if(n.equals("OPERADOR_SUBINIDCE")){return "17";}
-        if(n.equals("OPERADOR_MAYORQUE")){return "18";}
-        if(n.equals("OPERADOR_MENORQUE")){return "19";}
-        if(n.equals("OPERADOR_MAYORIGUAL")){return "20";}
-        if(n.equals("OPERADOR_MENORIGUAL")){return "21";}
-        if(n.equals("FUNCION_SQRT")){return "22";}
-        if(n.equals("FUNCION_SEN")){return "23";}
-        if(n.equals("FUNCION_COS")){return "24";}
-        if(n.equals("FUNCION_ABS")){return "25";}
-        if(n.equals("AGRUPACION_INICIO_NIVEL1")){return "26";}
-        if(n.equals("AGRUPACION_FINAL_NIVEL1")){return "27";}
-        if(n.equals("AGRUPACION_INICIO_NIVEL2")){return "28";}
-        if(n.equals("AGRUPACION_FINAL_NIVEL2")){return "29";}
-        if(n.equals("AGRUPACION_INICIO_TEXT")){return "30";}
-        if(n.equals("AGRUPACION_FINAL_TEXT")){return "31";}
-        if(n.equals("INDICACION_MATEMATICA")){return "32";}
-        if(n.equals("TEXTO_PLANO")){return "33";}
-        if(n.equals("ERROR_CARACTER_INVALIDO")){return "34";}
-        if(n.equals("ERROR_FUNCION_INVALIDA")){return "35";}
-        if(n.equals("ERROR_BLOQUE_DE_TEXTO")){return "36";}
-        if(n.equals("ERROR_CERO_INICIAL")){return "37";}
+
+    public String id(String n) {
+        if (n.equals("IDENTIFICADOR")) {
+            return "1";
+        }
+        if (n.equals("NUMERO_ENTERO")) {
+            return "2";
+        }
+        if (n.equals("NUMERO_REAL")) {
+            return "3";
+        }
+        if (n.equals("LETRA_GRIEGA")) {
+            return "4";
+        }
+        if (n.equals("CU_PI")) {
+            return "5";
+        }
+        if (n.equals("CU_EPSILON")) {
+            return "6";
+        }
+        if (n.equals("CU_PHI")) {
+            return "7";
+        }
+        if (n.equals("CU_SIGMA")) {
+            return "8";
+        }
+        if (n.equals("CU_THETA")) {
+            return "9";
+        }
+        if (n.equals("CU_RHO")) {
+            return "10";
+        }
+        if (n.equals("OPERADOR_SUMA")) {
+            return "11";
+        }
+        if (n.equals("OPERADOR_RESTA")) {
+            return "12";
+        }
+        if (n.equals("OPERADOR_MULTIPLICACION")) {
+            return "13";
+        }
+        if (n.equals("OPERADOR_DIVISION")) {
+            return "14";
+        }
+        if (n.equals("OPERADOR_IGUALACION")) {
+            return "15";
+        }
+        if (n.equals("OPERADOR_POTENCIA")) {
+            return "16";
+        }
+        if (n.equals("OPERADOR_SUBINIDCE")) {
+            return "17";
+        }
+        if (n.equals("OPERADOR_MAYORQUE")) {
+            return "18";
+        }
+        if (n.equals("OPERADOR_MENORQUE")) {
+            return "19";
+        }
+        if (n.equals("OPERADOR_MAYORIGUAL")) {
+            return "20";
+        }
+        if (n.equals("OPERADOR_MENORIGUAL")) {
+            return "21";
+        }
+        if (n.equals("FUNCION_SQRT")) {
+            return "22";
+        }
+        if (n.equals("FUNCION_SEN")) {
+            return "23";
+        }
+        if (n.equals("FUNCION_COS")) {
+            return "24";
+        }
+        if (n.equals("FUNCION_ABS")) {
+            return "25";
+        }
+        if (n.equals("AGRUPACION_INICIO_NIVEL1")) {
+            return "26";
+        }
+        if (n.equals("AGRUPACION_FINAL_NIVEL1")) {
+            return "27";
+        }
+        if (n.equals("AGRUPACION_INICIO_NIVEL2")) {
+            return "28";
+        }
+        if (n.equals("AGRUPACION_FINAL_NIVEL2")) {
+            return "29";
+        }
+        if (n.equals("AGRUPACION_INICIO_TEXT")) {
+            return "30";
+        }
+        if (n.equals("AGRUPACION_FINAL_TEXT")) {
+            return "31";
+        }
+        if (n.equals("INDICACION_MATEMATICA")) {
+            return "32";
+        }
+        if (n.equals("TEXTO_PLANO")) {
+            return "33";
+        }
+        if (n.equals("ERROR_CARACTER_INVALIDO")) {
+            return "34";
+        }
+        if (n.equals("ERROR_FUNCION_INVALIDA")) {
+            return "35";
+        }
+        if (n.equals("ERROR_BLOQUE_DE_TEXTO")) {
+            return "36";
+        }
+        if (n.equals("ERROR_CERO_INICIAL")) {
+            return "37";
+        }
         return "";
     }
 

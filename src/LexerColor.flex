@@ -1,4 +1,4 @@
-import compilerTools.TextColor;
+ import compilerTools.TextColor;
 import java.awt.Color;
 
 %%
@@ -38,48 +38,45 @@ Numero = 0 | [1-9][0-9]*
 {EspacioEnBlanco} { /*Ignorar*/ }
 
 /*Numeros*/
-{Numero} { return textColor(yychar, yylength(), new Color(128, 0, 128)); }
-{Numero}[.]{Digito}* { return textColor(yychar, yylength(), new Color(128, 0, 128)); }
+{Digito}  { return textColor(yychar, yylength(), new Color(189,147,249)); }
 
-/*Letras griegas*/ 
-\\{letrasGriegas} { return textColor(yychar, yylength(), new Color(0, 0, 255)); }
+/*Encabezado*/
+\\"clave"  { return textColor(yychar, yylength(), new Color(139,233,253)); }
+\\"compas" { return textColor(yychar, yylength(), new Color(139,233,253)); }
+\\"tempo"  { return textColor(yychar, yylength(), new Color(139,233,253)); }
 
-/*Constantes universales*/
-\\pi { return textColor(yychar, yylength(), new Color(0, 128, 0)); }
-\\epsilon { return textColor(yychar, yylength(), new Color(0, 128, 0)); }
-\\phi { return textColor(yychar, yylength(), new Color(0, 128, 0)); }
-\\sigma { return textColor(yychar, yylength(), new Color(0, 128, 0)); }
-\\theta { return textColor(yychar, yylength(), new Color(0, 128, 0)); }
-\\rho { return textColor(yychar, yylength(), new Color(0, 128, 0)); }
+/*Secciones*/
+\\"inicio(" { return textColor(yychar, yylength(), new Color(139,233,253)); }
+\\"final)"  { return textColor(yychar, yylength(), new Color(139,233,253)); }
 
-/*Operadores*/
-"+"   { return textColor(yychar, yylength(), new Color(255, 0, 0)); }
-"-"   { return textColor(yychar, yylength(), new Color(255, 0, 0)); }
-"*"   { return textColor(yychar, yylength(), new Color(255, 0, 0)); }
-"/"   { return textColor(yychar, yylength(), new Color(255, 0, 0)); }
-"="   { return textColor(yychar, yylength(), new Color(255, 0, 0)); }
-"^"   { return textColor(yychar, yylength(), new Color(255, 0, 0)); }
-">"   { return textColor(yychar, yylength(), new Color(255, 0, 0)); }
-"<"   { return textColor(yychar, yylength(), new Color(255, 0, 0)); }
-">="   { return textColor(yychar, yylength(), new Color(255, 0, 0)); }
-"<="   { return textColor(yychar, yylength(), new Color(255, 0, 0)); }
+/*Notas*/
+\\"r"	 { return textColor(yychar, yylength(), new Color(255,121,198)); }
+\\"b"	 { return textColor(yychar, yylength(), new Color(255,121,198)); }
+\\"n"	 { return textColor(yychar, yylength(), new Color(255,121,198)); }
+\\"c"	 { return textColor(yychar, yylength(), new Color(255,121,198)); }
+\\"s"	 { return textColor(yychar, yylength(), new Color(255,121,198)); }
+\\"f"	 { return textColor(yychar, yylength(), new Color(255,121,198)); }
+\\"sf"	 { return textColor(yychar, yylength(), new Color(255,121,198)); }
 
-/*Funciones*/
-\\"sqrt" { return textColor(yychar, yylength(), new Color(192, 192, 0)); }
-\\"sen" { return textColor(yychar, yylength(), new Color(192, 192, 0)); }
-\\"cos" { return textColor(yychar, yylength(), new Color(192, 192, 0)); }
-\\"abs" { return textColor(yychar, yylength(), new Color(192, 192, 0)); }
+/*Silencio notas*/
+\\"sir"	 { return textColor(yychar, yylength(), new Color(241,250,140)); }
+\\"sib"	 { return textColor(yychar, yylength(), new Color(241,250,140)); }
+\\"sin"	 { return textColor(yychar, yylength(), new Color(241,250,140)); }
+\\"sic"	 { return textColor(yychar, yylength(), new Color(241,250,140)); }
+\\"sis"	 { return textColor(yychar, yylength(), new Color(241,250,140)); }
+\\"sif"	 { return textColor(yychar, yylength(), new Color(241,250,140)); }
+\\"sisf" { return textColor(yychar, yylength(), new Color(241,250,140)); }
 
-/*Agrupacion*/
-"(" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
-")" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
-"{" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
-"}" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
-"<!inicio" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
-"fin!>" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
-"$" { return textColor(yychar, yylength(), new Color(255, 192, 203)); }
+/*Extas*/
+\\"p"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
+"#"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
+"-"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
 
-/*Texto*/
-{Identificador} { return textColor(yychar, yylength(), new Color(255, 165, 0)); }
+/*Compases*/
+"/"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
+"|"	 { return textColor(yychar, yylength(), new Color(255,184,108)); } 
 
-. { /* Ignorar */ }
+"{"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
+"}"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
+"="      { return textColor(yychar, yylength(), new Color(255,184,108)); }
+","	 { return textColor(yychar, yylength(), new Color(255,184,108)); }

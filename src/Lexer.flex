@@ -21,12 +21,9 @@ FinDeLineaComentario = "//" {EntradaDeCaracter}* {TerminadorDeLinea}?
 Comentario = {ComentarioTradicional} | {FinDeLineaComentario} 
 
 /* Identificador  */
-/*\int _{-\infty } ^{\pi }\:\log _7\left(\cot \left(\pi ^3\right)-7\right)*/
-Letra = [A-Za-záéíóúÁÉÍÓÚ,.:;]
-Funcion = [""|-]?\{Letra}{Letra}*
-Digito = [0-9]
-letrasGriegas = (alpha | beta | gamma | delta | zeta | eta | iota | kappa | lambda | mu | nu | xi | omicron | tau | upsilon | chi | psi | omega)
-Identificador = {Letra}({Letra}|{Digito})*
+Letra = [A | B | C | D | E | F | G]
+DigitoEscala = [1-8]
+DigitoCompas = [1-9][1-6]?
 
 /* Número */
 Numero = 0 | [1-9][0-9]*
@@ -36,53 +33,51 @@ Numero = 0 | [1-9][0-9]*
 {Comentario}|{EspacioEnBlanco} { /*Ignorar*/ }
 
 /*Numeros*/
-{Numero} { return token(yytext(), "NUMERO_ENTERO", yyline, yycolumn); }
-{Numero}[.]{Digito}* { return token(yytext(), "NUMERO_REAL", yyline, yycolumn); }
+{DigitoEscala}  { return token(yytext(), "TOKEN_DIGITO_ESCALA", yyline, yycolumn); }
+{DigitoCompas}  { return token(yytext(), "TOKEN_DIGITO_COMPAS", yyline, yycolumn); }
 
-/*Letras griegas*/ 
-\\{letrasGriegas} { return token(yytext(), "LETRA_GRIEGA", yyline, yycolumn); }
+/*Notas*/
+{Letra}{DigitoEscala} { return token(yytext(), "TOKEN_NOTA", yyline, yycolumn); }
 
-/*Constantes universales*/
-\\pi { return token(yytext(), "CU_PI", yyline, yycolumn); }
-\\epsilon { return token(yytext(), "CU_EPSILON", yyline, yycolumn); }
-\\phi { return token(yytext(), "CU_PHI", yyline, yycolumn); }
-\\sigma { return token(yytext(), "CU_SIGMA", yyline, yycolumn); }
-\\theta { return token(yytext(), "CU_THETA", yyline, yycolumn); }
-\\rho { return token(yytext(), "CU_RHO", yyline, yycolumn); }
+/*Encabezado*/
+\\"clave"  { return token(yytext(), "TOKEN_CLAVE", yyline, yycolumn); }
+\\"compas" { return token(yytext(), "TOKEN_COMPAS", yyline, yycolumn); }
+\\"tempo"  { return token(yytext(), "TOKEN_TEMPO", yyline, yycolumn); }
 
-/*Operadores*/
-"+"   { return token(yytext(), "OPERADOR_SUMA", yyline, yycolumn); }
-"-"   { return token(yytext(), "OPERADOR_RESTA", yyline, yycolumn); }
-"*"   { return token(yytext(), "OPERADOR_MULTIPLICACION", yyline, yycolumn); }
-"/"   { return token(yytext(), "OPERADOR_DIVISION", yyline, yycolumn); }
-"="   { return token(yytext(), "OPERADOR_IGUALACION", yyline, yycolumn); }
-"^"   { return token(yytext(), "OPERADOR_POTENCIA", yyline, yycolumn); }
-"_"   { return token(yytext(), "OPERADOR_SUBINIDCE", yyline, yycolumn); }
-">"   { return token(yytext(), "OPERADOR_MAYORQUE", yyline, yycolumn); }
-"<"   { return token(yytext(), "OPERADOR_MENORQUE", yyline, yycolumn); }
-">="   { return token(yytext(), "OPERADOR_MAYORIGUAL", yyline, yycolumn); }
-"<="   { return token(yytext(), "OPERADOR_MENORIGUAL", yyline, yycolumn); }
+/*Secciones*/
+\\"inicio(" { return token(yytext(), "TOKEN_INICIO_PARTITURA", yyline, yycolumn); }
+\\"final)"	 { return token(yytext(), "TOKEN_FINAL_PARTITURA", yyline, yycolumn); }
 
-/*Funciones*/
-\\"sqrt" { return token(yytext(), "FUNCION_SQRT", yyline, yycolumn); }
-\\"sen" { return token(yytext(), "FUNCION_SEN", yyline, yycolumn); }
-\\"cos" { return token(yytext(), "FUNCION_COS", yyline, yycolumn); }
-\\"abs" { return token(yytext(), "FUNCION_ABS", yyline,yycolumn); }
+/*Figuras*/
+\\"r"	 { return token(yytext(), "TOKEN_REDONDA", yyline, yycolumn); }
+\\"b"	 { return token(yytext(), "TOKEN_BLANCA", yyline, yycolumn); }
+\\"n"	 { return token(yytext(), "TOKEN_NEGRA", yyline, yycolumn); }
+\\"c"	 { return token(yytext(), "TOKEN_CORCHEA", yyline, yycolumn); }
+\\"s"	 { return token(yytext(), "TOKEN_SEMICORCHEA", yyline, yycolumn); }
+\\"f"	 { return token(yytext(), "TOKEN_FUSA", yyline, yycolumn); }
+\\"sf"	 { return token(yytext(), "TOKEN_SEMIFUSA", yyline, yycolumn); }
 
-/*Agrupacion*/
-"(" { return token(yytext(), "AGRUPACION_INICIO_NIVEL1", yyline, yycolumn); }
-")" { return token(yytext(), "AGRUPACION_FINAL_NIVEL1", yyline, yycolumn); }
-"{" { return token(yytext(), "AGRUPACION_INICIO_NIVEL2", yyline, yycolumn); }
-"}" { return token(yytext(), "AGRUPACION_FINAL_NIVEL2", yyline, yycolumn); }
-"<!inicio" { return token(yytext(), "AGRUPACION_INICIO_TEXT", yyline, yycolumn); }
-"fin!>" { return token(yytext(), "AGRUPACION_FINAL_TEXT", yyline, yycolumn); }
-"$" { return token(yytext(), "INDICACION_MATEMATICA", yyline, yycolumn); }
+/*Silencio figura*/
+\\"sr"	 { return token(yytext(), "TOKEN_SILENCIO_REDONDA", yyline, yycolumn); }
+\\"sb"	 { return token(yytext(), "TOKEN_SILENCIO_BLANCA", yyline, yycolumn); }
+\\"sn"	 { return token(yytext(), "TOKEN_SILENCIO_NEGRA", yyline, yycolumn); }
+\\"sc"	 { return token(yytext(), "TOKEN_SILENCIO_CORCHEA", yyline, yycolumn); }
+\\"ss"	 { return token(yytext(), "TOKEN_SILENCIO_SEMICORCHEA", yyline, yycolumn); }
+\\"sf"	 { return token(yytext(), "TOKEN_SILENCIO_FUSA", yyline, yycolumn); }
+\\"ssf"	 { return token(yytext(), "TOKEN_SILENCIO_SEMIFUSA", yyline, yycolumn); }
 
-/*Texto*/
-{Identificador}({EspacioEnBlanco}{Identificador})* { return token(yytext(), "TEXTO_PLANO", yyline, yycolumn); }
+/*Extas*/
+"*"	 { return token(yytext(), "TOKEN_PUNTILLO", yyline, yycolumn); }
+"#"	 { return token(yytext(), "TOKEN_SOSTENIDO", yyline, yycolumn); }
+"-"	 { return token(yytext(), "TOKEN_BEMOL", yyline, yycolumn); }
+
+/*Compases*/
+"/"	 { return token(yytext(), "TOKEN_DIVISOR_TEMPO", yyline, yycolumn); }
+"|"	 { return token(yytext(), "TOKEN_DIVISOR_COMPAS", yyline, yycolumn); }
+"{"	 { return token(yytext(), "TOKEN_APERTURA", yyline, yycolumn); }
+"}"	 { return token(yytext(), "TOKEN_CIERRE", yyline, yycolumn); }
+"="      { return token(yytext(), "TOKEN_ASIGNACION", yyline, yycolumn); }
+","	 { return token(yytext(), "TOKEN_SEPARACION_COMPAS", yyline, yycolumn); }
 
 /*ERRORES*/
-. { return token(yytext(), "ERROR_CARACTER_INVALIDO", yyline, yycolumn); }
-\\{Identificador} { return token(yytext(), "ERROR_FUNCION_INVALIDA", yyline, yycolumn); }
-"<!" | "!>" { return token(yytext(), "ERROR_BLOQUE_DE_TEXTO", yyline, yycolumn); }
-0{Digito}* { return token(yytext(), "ERROR_CERO_INICIAL", yyline, yycolumn); }
+. { return token(yytext(), "ERROR", yyline, yycolumn); }
