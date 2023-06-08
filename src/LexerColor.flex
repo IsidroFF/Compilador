@@ -22,15 +22,13 @@ ComentarioDeDocumentacion = "/**" {ContenidoComentario} "*"+ "/"
 /* Comentario */
 Comentario = {ComentarioTradicional} | {FinDeLineaComentario} | {ComentarioDeDocumentacion}
 
-/* Identificador */
-Letra = [A-Za-záéíóúÁÉÍÓÚ,:;]
-Funcion = [""|-]?\{Letra}{Letra}*
-Digito = [0-9]
-letrasGriegas = (alpha | beta | gamma | delta | zeta | eta | iota | kappa | lambda | mu | nu | xi | omicron | tau | upsilon | chi | psi | omega)
-Identificador = {Letra}({Letra}|{Digito})*
-
-/* Número */
-Numero = 0 | [1-9][0-9]*
+/* Identificador  */
+Letra = [A|B|C|D|E|F|G]
+/*DigitoEscala = [1-8]*/
+Digito = [1-9][1-6]?
+/*Clave = {Letra}{Digito} //G16 es un error sintactico o semantico??*/
+Nota = {Letra}{Digito}["#"|"-"]?["*"]?
+Puntillo = ["*"]?
 %%
 
 /* Comentarios o espacios en blanco */
@@ -39,6 +37,13 @@ Numero = 0 | [1-9][0-9]*
 
 /*Numeros*/
 {Digito}  { return textColor(yychar, yylength(), new Color(189,147,249)); }
+
+/*Notas*/
+{Nota} {return textColor(yychar, yylength(), new Color(165,194,97)); }
+/*{Clave} {return textColor(yychar, yylength(), new Color(165,194,97)); }*/
+{Puntillo}	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
+"#"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
+"-"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
 
 /*Encabezado*/
 \\"clave"  { return textColor(yychar, yylength(), new Color(139,233,253)); }
@@ -67,15 +72,9 @@ Numero = 0 | [1-9][0-9]*
 \\"sif"	 { return textColor(yychar, yylength(), new Color(241,250,140)); }
 \\"sisf" { return textColor(yychar, yylength(), new Color(241,250,140)); }
 
-/*Extas*/
-\\"p"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
-"#"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
-"-"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
-
 /*Compases*/
 "/"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
 "|"	 { return textColor(yychar, yylength(), new Color(255,184,108)); } 
-
 "{"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
 "}"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
 "="      { return textColor(yychar, yylength(), new Color(255,184,108)); }

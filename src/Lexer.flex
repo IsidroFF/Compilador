@@ -24,7 +24,9 @@ Comentario = {ComentarioTradicional} | {FinDeLineaComentario}
 Letra = [A|B|C|D|E|F|G]
 /*DigitoEscala = [1-8]*/
 Digito = [1-9][1-6]?
-Clave = {Letra}{Digito} //G16 es un error sintactico o semantico??
+/*Clave = {Letra}{Digito}*/ //G16 es un error sintactico o semantico??
+Nota = {Letra}{Digito}["#"|"-"]?
+Puntillo = ["*"]?
 %%
 
 /* Comentarios o espacios en blanco */
@@ -35,7 +37,11 @@ Clave = {Letra}{Digito} //G16 es un error sintactico o semantico??
 {Digito}  { return token(yytext(), "TOKEN_DIGITO", yyline, yycolumn); }
 
 /*Notas*/
-{Clave} { return token(yytext(), "TOKEN_NOTA", yyline, yycolumn); }
+{Nota} { return token(yytext(), "TOKEN_NOTA", yyline, yycolumn); }
+/*{Clave} { return token(yytext(), "TOKEN_DEFINE_CLAVE", yyline, yycolumn); }*/
+{Puntillo}	 { return token(yytext(), "TOKEN_PUNTILLO", yyline, yycolumn); }
+"#"	 { return token(yytext(), "TOKEN_SOSTENIDO", yyline, yycolumn); }
+"-"	 { return token(yytext(), "TOKEN_BEMOL", yyline, yycolumn); }
 
 /*Encabezado*/
 \\"clave"  { return token(yytext(), "TOKEN_CLAVE", yyline, yycolumn); }
@@ -63,11 +69,6 @@ Clave = {Letra}{Digito} //G16 es un error sintactico o semantico??
 \\"sis"	 { return token(yytext(), "TOKEN_SILENCIO_SEMICORCHEA", yyline, yycolumn); }
 \\"sif"	 { return token(yytext(), "TOKEN_SILENCIO_FUSA", yyline, yycolumn); }
 \\"sisf"	 { return token(yytext(), "TOKEN_SILENCIO_SEMIFUSA", yyline, yycolumn); }
-
-/*Extas*/
-"*"	 { return token(yytext(), "TOKEN_PUNTILLO", yyline, yycolumn); }
-"#"	 { return token(yytext(), "TOKEN_SOSTENIDO", yyline, yycolumn); }
-"-"	 { return token(yytext(), "TOKEN_BEMOL", yyline, yycolumn); }
 
 /*Compases*/
 "/"	 { return token(yytext(), "TOKEN_DIVISOR_TEMPO", yyline, yycolumn); }

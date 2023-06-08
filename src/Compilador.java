@@ -146,6 +146,10 @@ public class Compilador extends javax.swing.JFrame {
 
         rootPanel.add(buttonsFilePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 6, -1, -1));
 
+        jtpCode.setBackground(new java.awt.Color(40, 42, 54));
+        jtpCode.setFont(new java.awt.Font("JetBrainsMono Nerd Font", 0, 24)); // NOI18N
+        jtpCode.setForeground(new java.awt.Color(255, 255, 255));
+        jtpCode.setCaretColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(jtpCode);
 
         rootPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 138, 693, 480));
@@ -385,62 +389,67 @@ public class Compilador extends javax.swing.JFrame {
     private void analisisSintactico() {
         Grammar gramatica = new Grammar(tokens, errors);
         /*ERRORES*/
-        gramatica.delete(new String[]{"ERROR"},1);
-        
+        gramatica.delete(new String[]{"ERROR"}, 1);
+
         /*GRUPOS*/
         gramatica.group("COMPAS", "TOKEN_DIGITO TOKEN_DIVISOR_TEMPO TOKEN_DIGITO");
         gramatica.group("COMPAS_ERROR", "TOKEN_DIGITO TOKEN_DIGITO | TOKEN_DIGITO");
+        gramatica.group("FIGURAS", "(TOKEN_REDONDA | TOKEN_BLANCA | TOKEN_NEGRA | TOKEN_CORCHEA | TOKEN_SEMICORCHEA | TOKEN_FUSA | TOKEN_SEMIFUSA)(TOKEN_PUNTILLO)", true);
+        gramatica.group("SILENCIOS", "(TOKEN_SILENCIO_REDONDA | TOKEN_SILENCIO_BLANCA | TOKEN_SILENCIO_NEGRA | TOKEN_SILENCIO_CORCHEA | TOKEN_SILENCIO_SEMICORCHEA | TOKEN_SILENCIO_FUSA | TOKEN_SILENCIO_SEMIFUSA)(TOKEN_PUNTILLO)", true);
+        
         /* DECLARACIÓN CLAVE--------------------------------------------------*/
-        gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_ASIGNACION NOTAS", true);
+        gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_ASIGNACION TOKEN_NOTA", true);
         // ERRORES DECLARACION CLAVE
         gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_ASIGNACION", true,
-                2,"Error sintáctico #: Declarción incompleta, falta especificar la clave (G2 o F{3,4} o C{1,2,3,4}) [#,%]");
-        
-        gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE NOTAS", true,
-                3,"Error sintáctico #: Declarción incompleta, se espera simbolo de asignación (=) [#,%]");
-        
-        gramatica.group("DECLARACION_CLAVE", "TOKEN_ASIGNACION NOTAS", true,
-                4,"Error sintáctico #: Declarción incompleta, se espera la palabra reservada \"\\clave\" antes de \"=\" [#,%]");
-        
+                2, "Error sintáctico #: Declarción incompleta, falta especificar la clave (G2 o F{3,4} o C{1,2,3,4}) [#,%]");
+
+        gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_NOTA", true,
+                3, "Error sintáctico #: Declarción incompleta, se espera simbolo de asignación (=) [#,%]");
+
+        gramatica.group("DECLARACION_CLAVE", "TOKEN_ASIGNACION TOKEN_NOTA", true,
+                4, "Error sintáctico #: Declarción incompleta, se espera la palabra reservada \"\\clave\" antes de \"=\" [#,%]");
+
         gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE", true,
-                5,"Error sintáctico #: Declaración de clave incompleta [#,%]");
+                5, "Error sintáctico #: Declaración de clave incompleta [#,%]");
         /* DECLARACIÓN COMPAS-------------------------------------------------*/
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION COMPAS", true);
         /*ERRORES DELCARACION COMPAS*/
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION TOKEN_DIGITO TOKEN_DIVISOR_TEMPO", true,
-                6,"Error sintáctico #: Falta declarar unidad de tiempo [#,%]");
-        
+                6, "Error sintáctico #: Falta declarar unidad de tiempo [#,%]");
+
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION TOKEN_DIVISOR_TEMPO TOKEN_DIGITO", true,
-                7,"Error sintáctico #: Falta declarar unidad de compas [#,%]");
-        
+                7, "Error sintáctico #: Falta declarar unidad de compas [#,%]");
+
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_DIGITO TOKEN_DIVISOR_TEMPO TOKEN_DIGITO", true,
-                8,"Error sintáctico #: Falta declarar asignacion (=) [#,%]");
-        
+                8, "Error sintáctico #: Falta declarar asignacion (=) [#,%]");
+
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION COMPAS_ERROR", true,
-                9,"Error sintáctico #: Falta divisor (/) [#,%]");
-        
+                9, "Error sintáctico #: Falta divisor (/) [#,%]");
+
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS TOKEN_ASIGNACION", true,
-                10,"Error sintáctico #: No hay un compas asignado [#,%]");
-        
+                10, "Error sintáctico #: No hay un compas asignado [#,%]");
+
         gramatica.group("DECLARACION_COMPAS", "TOKEN_ASIGNACION COMPAS", true,
-                11,"Error sintáctico #: Declarción incompleta, se espera la palabra reservada \"\\compas\" antes de \"=\" [#,%]");
-        
+                11, "Error sintáctico #: Declarción incompleta, se espera la palabra reservada \"\\compas\" antes de \"=\" [#,%]");
+
         gramatica.group("DECLARACION_COMPAS", "TOKEN_COMPAS", true,
-                12,"Error sintáctico #: Error sintáctico #: Declaración de compas incompleta [#,%]");
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+                12, "Error sintáctico #: Declaración de compas incompleta [#,%]");
         /* DECLARACIÓN TEMPO--------------------------------------------------*/
-        gramatica.group("DECLARACION_COMPAS", "RESERVADAS ASIGNACION NUMERO NUMERO", true);
+        gramatica.group("DECLARACION_TEMPO", "TOKEN_TEMPO TOKEN_ASIGNACION COMPAS_ERROR", true);
+        // ERRORES DECLARACION TEMPO
+        gramatica.group("DECLARACION_TEMPO", "TOKEN_TEMPO TOKEN_ASIGNACION", true,
+                13, "Error sintáctico #: Declarción incompleta, falta especificar el tempo [#,%]");
+
+        gramatica.group("DECLARACION_TEMPO", "TOKEN_TEMPO COMPAS_ERROR", true,
+                14, "Error sintáctico #: Declarción incompleta, se espera simbolo de asignación (=) [#,%]");
+
+        gramatica.group("DECLARACION_TEMPO", "TOKEN_ASIGNACION COMPAS_ERROR", true,
+                15, "Error sintáctico #: Declarción incompleta, se espera la palabra reservada \"\\tempo\" antes de \"=\" [#,%]");
+
+        gramatica.group("DECLARACION_TEMPO", "TOKEN_TEMPO", true,
+                16, "Error sintáctico #: Declaración de tempo incompleta [#,%]");
         /*DECLARACION FIGURA CON NOTA*/
-        gramatica.group("DECLARACION_FIGURANOTA", "FIGURAS SEPARADORES FIGURAS NUMERO DELIMITADORES SEPARADORES", true);
+        gramatica.group("DECLARACION_FIGURANOTA", "FIGURA TOKEN_APERTURA TOKEN_NOTA TOKEN_CIERRE", true);
         /*checar cuando se trate de una declaración al final del compas, pues esta no necesita coma*/
  /* Mostrar gramáticas */
         gramatica.show();
@@ -481,116 +490,98 @@ public class Compilador extends javax.swing.JFrame {
     }
 
     public String id(String n) {
-        if (n.equals("IDENTIFICADOR")) {
+        if (n.equals("TOKEN_DIGITO")) {
             return "1";
         }
-        if (n.equals("NUMERO_ENTERO")) {
+        if (n.equals("TOKEN_NOTA")) {
             return "2";
         }
-        if (n.equals("NUMERO_REAL")) {
+        if (n.equals("TOKEN_CLAVE")) {
             return "3";
         }
-        if (n.equals("LETRA_GRIEGA")) {
+        if (n.equals("TOKEN_COMPAS")) {
             return "4";
         }
-        if (n.equals("CU_PI")) {
+        if (n.equals("TOKEN_TEMPO")) {
             return "5";
         }
-        if (n.equals("CU_EPSILON")) {
+        if (n.equals("TOKEN_INICIO_PARTITURA")) {
             return "6";
         }
-        if (n.equals("CU_PHI")) {
+        if (n.equals("TOKEN_FINAL_PARTITURA")) {
             return "7";
         }
-        if (n.equals("CU_SIGMA")) {
+        if (n.equals("TOKEN_REDONDA")) {
             return "8";
         }
-        if (n.equals("CU_THETA")) {
+        if (n.equals("TOKEN_BLANCA")) {
             return "9";
         }
-        if (n.equals("CU_RHO")) {
+        if (n.equals("TOKEN_NEGRA")) {
             return "10";
         }
-        if (n.equals("OPERADOR_SUMA")) {
+        if (n.equals("TOKEN_CORCHEA")) {
             return "11";
         }
-        if (n.equals("OPERADOR_RESTA")) {
+        if (n.equals("TOKEN_SEMICORCHEA")) {
             return "12";
         }
-        if (n.equals("OPERADOR_MULTIPLICACION")) {
+        if (n.equals("TOKEN_FUSA")) {
             return "13";
         }
-        if (n.equals("OPERADOR_DIVISION")) {
+        if (n.equals("TOKEN_SEMIFUSA")) {
             return "14";
         }
-        if (n.equals("OPERADOR_IGUALACION")) {
+        if (n.equals("TOKEN_SILENCIO_REDONDA")) {
             return "15";
         }
-        if (n.equals("OPERADOR_POTENCIA")) {
+        if (n.equals("TOKEN_SILENCIO_BLANCA")) {
             return "16";
         }
-        if (n.equals("OPERADOR_SUBINIDCE")) {
+        if (n.equals("TOKEN_SILENCIO_NEGRA")) {
             return "17";
         }
-        if (n.equals("OPERADOR_MAYORQUE")) {
+        if (n.equals("TOKEN_SILENCIO_CORCHEA")) {
             return "18";
         }
-        if (n.equals("OPERADOR_MENORQUE")) {
+        if (n.equals("TOKEN_SILENCIO_SEMICORCHEA")) {
             return "19";
         }
-        if (n.equals("OPERADOR_MAYORIGUAL")) {
+        if (n.equals("TOKEN_SILENCIO_FUSA")) {
             return "20";
         }
-        if (n.equals("OPERADOR_MENORIGUAL")) {
+        if (n.equals("TOKEN_SILENCIO_SEMIFUSA")) {
             return "21";
         }
-        if (n.equals("FUNCION_SQRT")) {
+        if (n.equals("TOKEN_PUNTILLO")) {
             return "22";
         }
-        if (n.equals("FUNCION_SEN")) {
+        if (n.equals("TOKEN_SOSTENIDO")) {
             return "23";
         }
-        if (n.equals("FUNCION_COS")) {
+        if (n.equals("TOKEN_BEMOL")) {
             return "24";
         }
-        if (n.equals("FUNCION_ABS")) {
+        if (n.equals("TOKEN_DIVISOR_TEMPO")) {
             return "25";
         }
-        if (n.equals("AGRUPACION_INICIO_NIVEL1")) {
+        if (n.equals("TOKEN_DIVISOR_COMPAS")) {
             return "26";
         }
-        if (n.equals("AGRUPACION_FINAL_NIVEL1")) {
+        if (n.equals("TOKEN_APERTURA")) {
             return "27";
         }
-        if (n.equals("AGRUPACION_INICIO_NIVEL2")) {
+        if (n.equals("TOKEN_CIERRE")) {
             return "28";
         }
-        if (n.equals("AGRUPACION_FINAL_NIVEL2")) {
+        if (n.equals("TOKEN_ASIGNACION")) {
             return "29";
         }
-        if (n.equals("AGRUPACION_INICIO_TEXT")) {
+        if (n.equals("TOKEN_SEPARACION_COMPAS")) {
             return "30";
         }
-        if (n.equals("AGRUPACION_FINAL_TEXT")) {
+        if (n.equals("TOKEN_DEFINE_CLAVE")) {
             return "31";
-        }
-        if (n.equals("INDICACION_MATEMATICA")) {
-            return "32";
-        }
-        if (n.equals("TEXTO_PLANO")) {
-            return "33";
-        }
-        if (n.equals("ERROR_CARACTER_INVALIDO")) {
-            return "34";
-        }
-        if (n.equals("ERROR_FUNCION_INVALIDA")) {
-            return "35";
-        }
-        if (n.equals("ERROR_BLOQUE_DE_TEXTO")) {
-            return "36";
-        }
-        if (n.equals("ERROR_CERO_INICIAL")) {
-            return "37";
         }
         return "";
     }
