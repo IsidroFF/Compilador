@@ -96,8 +96,8 @@ class Lexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\1\1\2\2\3\1\4\1\1\1\5\1\6\1\7"+
-    "\1\10\1\11\2\2\1\12\1\13\1\14\1\0\1\3"+
+    "\1\0\1\1\2\2\1\3\1\4\1\5\1\6\1\7"+
+    "\1\10\1\11\2\1\1\12\1\13\1\14\1\0\1\2"+
     "\1\10\1\15\1\16\1\17\1\20\1\0\1\21\1\22"+
     "\1\23\3\0\2\15\4\0\1\24\7\0\1\25\1\26"+
     "\1\27\1\30\1\31\1\32\5\0\1\33\1\0\1\34"+
@@ -226,7 +226,7 @@ class Lexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\1\2\11\1\1\4\11\2\1\1\11\2\1\1\11"+
+    "\1\0\2\11\1\1\4\11\2\1\1\11\2\1\1\11"+
     "\1\1\1\11\1\0\1\1\1\11\1\1\1\11\2\1"+
     "\1\0\2\11\1\1\3\0\1\11\1\1\4\0\1\11"+
     "\7\0\5\11\1\1\5\0\1\11\1\0\1\11\3\0"+
@@ -709,22 +709,22 @@ class Lexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { return token(yytext(), "TOKEN_PUNTILLO", yyline, yycolumn);
+            { return token(yytext(), "ERROR", yyline, yycolumn);
             }
             // fall through
           case 33: break;
           case 2:
-            { return token(yytext(), "ERROR", yyline, yycolumn);
+            { /*Ignorar*/
             }
             // fall through
           case 34: break;
           case 3:
-            { /*Ignorar*/
+            { return token(yytext(), "TOKEN_SOSTENIDO", yyline, yycolumn);
             }
             // fall through
           case 35: break;
           case 4:
-            { return token(yytext(), "TOKEN_SOSTENIDO", yyline, yycolumn);
+            { return token(yytext(), "TOKEN_PUNTILLO", yyline, yycolumn);
             }
             // fall through
           case 36: break;

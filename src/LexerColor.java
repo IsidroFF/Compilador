@@ -96,7 +96,7 @@ class LexerColor {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\1\1\2\2\2\1\1\3\2\0\1\1\1\0\1\4"+
+    "\1\0\2\1\2\2\1\3\2\0\1\2\1\0\1\4"+
     "\1\3\1\5\3\6\1\0\1\6\3\0\2\4\3\5"+
     "\7\0\1\4\4\0\2\7\6\0\1\10\4\0";
 
@@ -220,7 +220,7 @@ class LexerColor {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\1\1\1\11\1\1\1\11\2\1\2\0\1\1\1\0"+
+    "\1\0\1\11\1\1\1\11\2\1\2\0\1\1\1\0"+
     "\1\1\1\11\1\1\1\11\2\1\1\0\1\1\3\0"+
     "\1\11\2\1\1\11\1\1\7\0\1\1\4\0\1\11"+
     "\1\1\6\0\1\11\4\0";
@@ -648,12 +648,12 @@ class LexerColor {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { return textColor(yychar, yylength(), new Color(255,184,108));
+            { /*Ignorar*/
             }
             // fall through
           case 9: break;
           case 2:
-            { /*Ignorar*/
+            { return textColor(yychar, yylength(), new Color(255,184,108));
             }
             // fall through
           case 10: break;

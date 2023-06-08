@@ -26,7 +26,6 @@ Letra = [A|B|C|D|E|F|G]
 Digito = [1-9][1-6]?
 /*Clave = {Letra}{Digito}*/ //G16 es un error sintactico o semantico??
 Nota = {Letra}{Digito}["#"|"-"]?
-Puntillo = ["*"]?
 %%
 
 /* Comentarios o espacios en blanco */
@@ -39,7 +38,7 @@ Puntillo = ["*"]?
 /*Notas*/
 {Nota} { return token(yytext(), "TOKEN_NOTA", yyline, yycolumn); }
 /*{Clave} { return token(yytext(), "TOKEN_DEFINE_CLAVE", yyline, yycolumn); }*/
-{Puntillo}	 { return token(yytext(), "TOKEN_PUNTILLO", yyline, yycolumn); }
+"*"	 { return token(yytext(), "TOKEN_PUNTILLO", yyline, yycolumn); }
 "#"	 { return token(yytext(), "TOKEN_SOSTENIDO", yyline, yycolumn); }
 "-"	 { return token(yytext(), "TOKEN_BEMOL", yyline, yycolumn); }
 
