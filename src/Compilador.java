@@ -80,7 +80,6 @@ public class Compilador extends javax.swing.JFrame {
         //Functions.insertAsteriskInName(this, jtpCode, () -> {
         //    timerKeyReleased.restart();
         //});
-
         //Arrays de elementos
         tokens = new ArrayList<>();
         errors = new ArrayList<>();
@@ -491,7 +490,7 @@ public class Compilador extends javax.swing.JFrame {
         gramatica.finalLineColumn();
         gramatica.group("BLOQUE_COMPASES", "TOKEN_INICIO_PARTITURA DECLARACION_FIGURANOTA", true,
                 27, "Error sintáctico {}: Declaracion incompleta, final de la partitura no encontrada (\\final))[#,%]");
-        
+
         gramatica.initialLineColumn();
         gramatica.group("BLOQUE_COMPASES", "DECLARACION_FIGURANOTA TOKEN_FINAL_PARTITURA", true,
                 28, "Error sintáctico {]: Declaracion incompleta, inicio de la partitura no encontrada (\\inicio()[#,%]");
@@ -501,8 +500,44 @@ public class Compilador extends javax.swing.JFrame {
 
         gramatica.group("DECLARACION_FIGURANOTA", "DECLARACION_FIGURANOTA", true,
                 30, "Error sintáctico #: Declaracion incompleta, hace falta una declaracion de inicio y una declaracion de final en antes y despues del bloque de partitura [#,%]");
+
+        /*TOKENS FUERA DE CONTEXTO*/
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_INICIO_PARTITURA", true,
+                31, "Error sintáctico {}: Se ha encontrado un inicio de partitura que no lleva a ningun lugar [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_FINAL_PARTITURA", true,
+                32, "Error sintáctico {}: Se ha encontrado un cierre de partitura sin un inicio previo [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "FIGURA", true,
+                33, "Error sintáctico {}: Se ha encontrado una figura sin contexto [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_PUNTILLO", true,
+                34, "Error sintáctico {}: Se ha encontrado un puntillo sin contexto [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_APERTURA", true,
+                35, "Error sintáctico {}: Se ha encontrado una apertura de nota sin contexto [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_CIERRE", true,
+                36, "Error sintáctico {}: Se ha encontrado un cierre de nota sin contexto [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_DIVISOR_COMPAS", true,
+                37, "Error sintáctico {}: Se ha encontrado un divisor de compas fuera de contexto[#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_NOTA", true,
+                38, "Error sintáctico {}: Se ha encontrado un valor de nota sin contexto [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_ASIGNACION", true,
+                39, "Error sintáctico {}: Se ha encontrado una asignacion fuera de contexto [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "COMPAS_ERROR", true,
+                40, "Error sintáctico {}: Se han encontrado valores numericos sin contexto [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "COMPAS", true,
+                41, "Error sintáctico {}: Se ha encontrado un compas fuera de contexto [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_DIVISOR_COMPAS", true,
+                42, "Error sintáctico {}: Se ha encontrado un divisor de compas sin contexto [#,%]");
         /* Mostrar gramáticas */
- /*TOKENS FUERA DE CONTEXTO*/
         gramatica.show();
     }
 
