@@ -22,6 +22,7 @@ Comentario = {ComentarioTradicional} | {FinDeLineaComentario}
 
 /* Identificador  */
 Letra = [A|B|C|D|E|F|G]
+AlfaErrores = [a-zA-Z]
 /*DigitoEscala = [1-8]*/
 Digito = [1-9][1-6]?
 /*Clave = {Letra}{Digito}*/ //G16 es un error sintactico o semantico??
@@ -79,3 +80,4 @@ Nota = {Letra}{Digito}
 
 /*ERRORES*/
 . { return token(yytext(), "ERROR", yyline, yycolumn); }
+\\{AlfaErrores}+ { return token(yytext(), "ERROR_RESERVADA", yyline, yycolumn); }

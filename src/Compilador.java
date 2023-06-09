@@ -388,7 +388,7 @@ public class Compilador extends javax.swing.JFrame {
     private void analisisSintactico() {
         Grammar gramatica = new Grammar(tokens, errors);
         /*ERRORES*/
-        gramatica.delete(new String[]{"ERROR"}, 1);
+        gramatica.delete(new String[]{"ERROR","ERROR_RESERVADA"}, 1);
 
         /*GRUPOS*/
         gramatica.group("COMPAS", "TOKEN_DIGITO TOKEN_DIVISOR_TEMPO TOKEN_DIGITO");
@@ -398,6 +398,11 @@ public class Compilador extends javax.swing.JFrame {
         /* DECLARACIÓN CLAVE--------------------------------------------------*/
         gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_ASIGNACION TOKEN_NOTA", true);
         // ERRORES DECLARACION CLAVE
+        gramatica.finalLineColumn();
+        gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE (TOKEN_ASIGNACION)+ TOKEN_NOTA", true,
+                45, "Error sintáctico {}: Se ha declarado mas de un simbolo de asignacion (=) [#,%]");
+        
+        gramatica.initialLineColumn();
         gramatica.group("DECLARACION_CLAVE", "TOKEN_CLAVE TOKEN_ASIGNACION", true,
                 2, "Error sintáctico {}: Declarción incompleta, falta especificar la clave (G2 o F{3,4} o C{1,2,3,4}) [#,%]");
 
@@ -537,6 +542,12 @@ public class Compilador extends javax.swing.JFrame {
 
         gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_DIVISOR_COMPAS", true,
                 42, "Error sintáctico {}: Se ha encontrado un divisor de compas sin contexto [#,%]");
+        
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_SOSTENIDO", true,
+                43, "Error sintáctico {}: Se ha encontrado un sostenido sin asignacion a ninguna nota [#,%]");
+
+        gramatica.group("TOKENS_FUERA_DE_CONTEXTO", "TOKEN_BEMOL", true,
+                44, "Error sintáctico {}: Se ha encontrado un bemol sin asignacion a ninguna nota [#,%]");
         /* Mostrar gramáticas */
         gramatica.show();
     }
