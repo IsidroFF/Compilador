@@ -451,31 +451,31 @@ public class Compilador extends javax.swing.JFrame {
 
         /*DECLARACION FIGURA CON NOTA-----------------------------------------*/
         gramatica.loopForFunExecUntilChangeNotDetected(() -> {
-            gramatica.group("DECLARACION_FIGURANOTA", "((FIGURA|FIGURA TOKEN_PUNTILLO) TOKEN_APERTURA TOKEN_NOTA (TOKEN_CIERRE | TOKEN_CIERRE TOKEN_DIVISOR_COMPAS))+");
+            gramatica.group("DECLARACION_FIGURANOTA", "((FIGURA|FIGURA TOKEN_PUNTILLO) TOKEN_APERTURA (TOKEN_NOTA | TOKEN_NOTA (TOKEN_SOSTENIDO | TOKEN_BEMOL)) (TOKEN_CIERRE | TOKEN_CIERRE TOKEN_DIVISOR_COMPAS))+");
         });
         /*ERRORES DECLARACION NOTAS*/
-        gramatica.group("DECLARACION_FIGURANOTA", "(FIGURA|FIGURA TOKEN_PUNTILLO) TOKEN_APERTURA TOKEN_NOTA", true,
+        gramatica.group("DECLARACION_FIGURANOTA", "(FIGURA|FIGURA TOKEN_PUNTILLO) TOKEN_APERTURA (TOKEN_NOTA | TOKEN_NOTA (TOKEN_SOSTENIDO | TOKEN_BEMOL))", true,
                 17, "Error sintáctico {}: Se espera una declaracion de cierre \"}\" para la nota [#,%]");
 
-        gramatica.group("DECLARACION_FIGURANOTA", "(FIGURA|FIGURA TOKEN_PUNTILLO) TOKEN_NOTA TOKEN_CIERRE", true,
+        gramatica.group("DECLARACION_FIGURANOTA", "(FIGURA|FIGURA TOKEN_PUNTILLO) (TOKEN_NOTA | TOKEN_NOTA (TOKEN_SOSTENIDO | TOKEN_BEMOL)) TOKEN_CIERRE", true,
                 18, "Error sintáctico {}: Se espera una declaracion de apertura \"{\" para la nota [#,%]");
 
         gramatica.group("DECLARACION_FIGURANOTA", "(FIGURA|FIGURA TOKEN_PUNTILLO) TOKEN_APERTURA TOKEN_CIERRE", true,
                 19, "Error sintáctico {}: Se espera una nota (Ej. A4) [#,%]");
 
-        gramatica.group("DECLARACION_FIGURANOTA", "(FIGURA|FIGURA TOKEN_PUNTILLO) TOKEN_NOTA", true,
+        gramatica.group("DECLARACION_FIGURANOTA", "(FIGURA|FIGURA TOKEN_PUNTILLO) (TOKEN_NOTA | TOKEN_NOTA (TOKEN_SOSTENIDO | TOKEN_BEMOL))", true,
                 20, "Error sintáctico {}: Se espera que el valor de nota se encuentre entre llaves (\"{}\") [#,%]");
 
-        gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_APERTURA TOKEN_NOTA TOKEN_CIERRE", true,
+        gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_APERTURA (TOKEN_NOTA | TOKEN_NOTA (TOKEN_SOSTENIDO | TOKEN_BEMOL)) TOKEN_CIERRE", true,
                 21, "Error sintáctico {}: No se ha especificado un a figura [#,%]");
 
         gramatica.group("DECLARACION_FIGURANOTA", "(FIGURA|FIGURA TOKEN_PUNTILLO) TOKEN_APERTURA", true,
                 22, "Error sintáctico {}: Declaracion incompleta, hace falta un valor de nota (Ej. A4) y un cierre \"}\" [#,%]");
 
-        gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_APERTURA TOKEN_NOTA", true,
+        gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_APERTURA (TOKEN_NOTA | TOKEN_NOTA (TOKEN_SOSTENIDO | TOKEN_BEMOL))", true,
                 23, "Error sintáctico {}: Se un valor de figura, y un valor de cierre \"}\" [#,%]");
 
-        gramatica.group("DECLARACION_FIGURANOTA", "TOKEN_NOTA TOKEN_CIERRE", true,
+        gramatica.group("DECLARACION_FIGURANOTA", "(TOKEN_NOTA | TOKEN_NOTA (TOKEN_SOSTENIDO | TOKEN_BEMOL)) TOKEN_CIERRE", true,
                 24, "Error sintáctico {}: Se espera un valor de figura, y un valor de apertura \"{\" [#,%]");
 
         gramatica.group("DECLARACION_FIGURANOTA", "(FIGURA|FIGURA TOKEN_PUNTILLO) TOKEN_CIERRE", true,

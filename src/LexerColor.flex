@@ -27,7 +27,7 @@ Letra = [A|B|C|D|E|F|G]
 /*DigitoEscala = [1-8]*/
 Digito = [1-9][1-6]?
 /*Clave = {Letra}{Digito} //G16 es un error sintactico o semantico??*/
-Nota = {Letra}{Digito}["#"|"-"]?["*"]?
+Nota = {Letra}{Digito}
 %%
 
 /* Comentarios o espacios en blanco */
