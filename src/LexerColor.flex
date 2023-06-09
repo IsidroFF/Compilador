@@ -27,8 +27,7 @@ Letra = [A|B|C|D|E|F|G]
 /*DigitoEscala = [1-8]*/
 Digito = [1-9][1-6]?
 /*Clave = {Letra}{Digito} //G16 es un error sintactico o semantico??*/
-Nota = {Letra}{Digito}["#"|"-"]?["*"]?
-Puntillo = ["*"]?
+Nota = {Letra}{Digito}
 %%
 
 /* Comentarios o espacios en blanco */
@@ -41,7 +40,7 @@ Puntillo = ["*"]?
 /*Notas*/
 {Nota} {return textColor(yychar, yylength(), new Color(165,194,97)); }
 /*{Clave} {return textColor(yychar, yylength(), new Color(165,194,97)); }*/
-{Puntillo}	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
+"*"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
 "#"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
 "-"	 { return textColor(yychar, yylength(), new Color(255,184,108)); }
 
